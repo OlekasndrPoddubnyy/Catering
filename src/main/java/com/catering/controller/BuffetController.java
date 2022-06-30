@@ -2,6 +2,7 @@ package com.catering.controller;
 
 import com.catering.controller.validator.BuffetValidator;
 import com.catering.model.Buffet;
+import com.catering.model.Chef;
 import com.catering.service.BuffetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,5 +50,13 @@ public class BuffetController {
             return "buffets";
         }
         return "buffetForm";
+    }
+
+    @RequestMapping(value = "/admin/buffetDelete", method = RequestMethod.POST)
+    public String deleteBuffet(@ModelAttribute("buffet") Buffet buffet,
+                             Model model) {
+        this.buffetService.deleteBuffet(buffet);
+        model.addAttribute("buffet", buffet);
+        return "confermaDeleteBuffet";
     }
 }
