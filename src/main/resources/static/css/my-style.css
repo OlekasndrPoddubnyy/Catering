@@ -1,3 +1,17 @@
 .main-registration{
-    height: 100vh;
+    height: 80vh;
+    margin: 50px 200px;
+}
+
+.reg-mes{
+    text-align: center;
+    font-size: 60px;
+    color: #9053c7;
+}
+
+.reg-mes2{
+    margin-top: 60px;
+    text-align: center;
+    font-size: 40px;
+    color: #5d00de;
 }
