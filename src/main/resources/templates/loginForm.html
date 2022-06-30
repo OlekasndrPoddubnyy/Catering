@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" th:href="@{/css/login.css}" />
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<title>Sign in Form</title>
+<body>
+
+<div class="container">
+    <div class="wrap">
+        <div class="login-pic" data-tilt>
+            <img th:src="@{/images/log-img.png}" alt="IMG" />
+        </div>
+
+        <form class="login" th:action="@{/login}" method="POST" >
+            <span class="login-title">Login</span>
+
+            <div class="wrap-input">
+                <input class="input" name="username" type="text" placeholder="Enter your email" required>
+                <span class="focus-input"></span>
+                <i class="uil uil-envelope icon"></i>
+            </div>
+
+            <div class="wrap-input">
+                <input class="input password" type="password" name="password" required placeholder="Password">
+                <span class="focus-input"></span>
+                <i class="uil uil-lock icon"></i>
+                <i class="uil uil-eye-slash showHidePw"></i>
+                <div class="errori" th:if="${param.error != null}">
+                    User don't exist
+                </div>
+            </div>
+
+            <div class="container-login-btn">
+                <button class="login-btn">Login</button>
+            </div>
+            <div class="btn-container">
+                <a class="txt2" th:href="@{/register}">
+                    <div class="text-bott">Register</div>
+                </a>
+                <a class="txt2" th:href="@{/}">
+                    <div class="text-bott">Go Home</div>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/login.js}"></script>
+</body>
+</html>

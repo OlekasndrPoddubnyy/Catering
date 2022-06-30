@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
+    <link href="https://fonts.googleapis.com/css2?family=Smooch&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title th:text="${title}"></title>
+</head>
+<body>
+<nav th:fragment="intestazione">
+        <div class="container">
+            <h1>Foodie</h1>
+            <div class="menu">
+                <ul class="nav-links">
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/login}"class="is-active" th:text="#{index.logout}">Logout</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}"class="is-active" th:text="#{index.login}">Login</a></li>
+                </ul>
+            </div>
+
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+</nav>
+
+
+
+<footer th:fragment="fondo(home)">
+    <div class="footer-content">
+        <h3>Foodie</h3>
+        <p>your perfect catering</p>
+        <ul class="socials">
+            <li><a class="social__icon--link" href="https://m.facebook.com/sasha.poddubnyy" target="_blank"><i class="fa fa-facebook"></i></a></li>
+            <li><a class="social__icon--link" href="https://twitter.com/OPoddubnyy" target="_blank"><i class="fa fa-twitter"></i></a></li>
+            <li><a class="social__icon--link" href="https://github.com/OlekasndrPoddubnyy/Catering" target="_blank"><i class="fa fa-github"></i></a></li>
+            <li><a class="social__icon--link" href="https://www.linkedin.com/feed/" target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
+        </ul>
+    </div>
+    <div class="footer-bottom">
+        <p>copyrigth &copy;2022 Foodie. Designed by <span>Oleksandr Poddubnyy</span></p>
+    </div>
+</footer>
+
+<script type="text/javascript" th:src="@{/js/base.js}"></script>
+</body>
+</html>
