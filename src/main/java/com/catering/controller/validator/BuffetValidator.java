@@ -1,6 +1,7 @@
 package com.catering.controller.validator;
 
-
+import com.catering.model.Buffet;
+import com.catering.service.BuffetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,25 +10,22 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.catering.model.Prodotto;
-import com.catering.service.ProdottoService;
-
 
 @Component
-public class ProdottoValidator implements Validator {
-    @Autowired
-    private ProdottoService prodottoService;
+public class BuffetValidator implements Validator {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProdottoValidator.class);
+    @Autowired
+    private BuffetService buffetService;
+
+    private static Logger logger = LoggerFactory.getLogger(BuffetValidator.class);
 
     @Override
     public void validate(Object o, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nome", "required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "descrizione", "required");
 
         if (!errors.hasErrors()) {
             logger.debug("confermato: valori non nulli");
-            if (this.prodottoService.alreadyExists((Prodotto)o)) {
+            if (this.buffetService.alreadyExists((Buffet) o)) {
                 logger.debug("e' un duplicato");
                 errors.reject("duplicato");
             }
@@ -35,7 +33,6 @@ public class ProdottoValidator implements Validator {
     }
 
     @Override
-    public boolean supports(Class<?> aClass) {
-        return Prodotto.class.equals(aClass);
-    }
+    public boolean supports(Class<?> aClass) { return Buffet.class.equals(aClass);}
+
 }

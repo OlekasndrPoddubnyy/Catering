@@ -20,7 +20,6 @@ public class Buffet {
 
     private String description;
 
-    @NotNull
     /* Uso la strategia di cascade solo persist in quanto potrei crearli simltanemente,
     *  mentre la strategia di fetch è EAGER, perché dobbiamo sapere lo chef di ogni buffet */
     @ManyToOne(cascade = {CascadeType.PERSIST})
