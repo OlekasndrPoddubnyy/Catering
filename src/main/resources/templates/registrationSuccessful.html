@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" th:href="@{/css/my-style.css}" />
     <link href="https://fonts.googleapis.com/css2?family=Smooch&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Registration Successful</title>
 </head>
 <body>
 
 <nav th:replace="fragments/base.html :: intestazione"></nav>
 
-<div>
-    <h4 th:text="#{header.registra}">Registrazione</h4>
-    <h1>Congratulazioni ti sei registrato!</h1>
+<div class="main-registration">
+    <p  th:text="#{header.registra}">Registrazione</p>
+    <p>Congratulazioni ti sei registrato!</p>
 </div>
 
-<footer th:replace="fragments/base.html :: fondo(home='/')"></footer>
+<footer th:replace="fragments/base.html :: fondo"></footer>
 
 <script type="text/javascript" th:src="@{/js/base.js}"></script>
 </body>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" th:href="@{/css/login.css}" />
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-  <title>Sign up Form</title>
+  <title th:text="#{index.login}">Sign up Form</title>
 </head>
 <body>
 <div class="container">
@@ -50,7 +50,7 @@
             </div>
             <div class="btn-container">
                 <a class="txt2" th:href="@{/login}">
-                    <div class="text-bott">Login</div>
+                    <div class="text-bott" th:text="#{index.login}">Login</div>
                 </a>
                 <a class="txt2" th:href="@{/}">
                     <div class="text-bott">Go Home</div>

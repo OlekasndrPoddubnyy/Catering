@@ -73,7 +73,7 @@ public class AuthenticationController {
             // this also stores the User, thanks to Cascade.ALL policy
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
-            return "registrationSuccessfull";
+            return "registrationSuccessful";
         }
         return "registerUser";
     }

@@ -16,8 +16,10 @@
             <div class="menu">
                 <ul class="nav-links">
                     <li><a th:href="@{/}">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li sec:authorize="isAuthenticated()"><a th:href="@{/login}"class="is-active" th:text="#{index.logout}">Logout</a></li>
+                    <li><a th:href="@{/logout}" >Menu</a></li>
+                    <li><a th:href="@{/logout}" >Chef</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/default}" >Profile</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"class="is-active" th:text="#{index.logout}">Logout</a></li>
                     <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}"class="is-active" th:text="#{index.login}">Login</a></li>
                 </ul>
             </div>
@@ -32,7 +34,7 @@
 
 
 
-<footer th:fragment="fondo(home)">
+<footer th:fragment="fondo">
     <div class="footer-content">
         <h3>Foodie</h3>
         <p>your perfect catering</p>
