@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.catering.model.Credentials;
 import com.catering.repository.CredentialsRepository;
 
-
 @Service
 public class CredentialsService {
 

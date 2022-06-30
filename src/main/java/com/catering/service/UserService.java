@@ -1,12 +1,13 @@
 package com.catering.service;
 
 
-import com.catering.model.User;
-import com.catering.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.catering.model.User;
+import com.catering.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
