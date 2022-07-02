@@ -1,7 +1,6 @@
 package com.catering.controller;
 
 import com.catering.controller.validator.IngredienteValidator;
-import com.catering.model.Chef;
 import com.catering.model.Ingrediente;
 import com.catering.service.BuffetService;
 import com.catering.service.ChefService;

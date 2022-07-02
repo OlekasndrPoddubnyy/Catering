@@ -1,6 +1,5 @@
 package com.catering.service;
 
-import com.catering.model.Buffet;
 import com.catering.model.Ingrediente;
 import com.catering.repository.IngredienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;

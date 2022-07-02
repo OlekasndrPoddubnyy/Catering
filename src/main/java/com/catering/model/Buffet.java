@@ -2,6 +2,7 @@ package com.catering.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,7 +29,6 @@ public class Buffet {
     * mentre la strategia di fetch è EAGER, perché ci interessa sempre sapere i piatti
     * che compongono un buffet */
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "piatto_id")
     @OrderBy("name desc")
     private List<Piatto> piatti;
 
@@ -85,17 +85,47 @@ public class Buffet {
         this.users = users;
     }
 
+    public boolean addPiatto(Piatto piatto){
+        if(this.piatti.isEmpty()){
+            this.piatti = new ArrayList<>();
+            this.piatti.add(piatto);
+            return true;
+        }
+        for (Piatto piatto1  : this.piatti) {
+            if(piatto1.equals(piatto))
+                return false;
+        }
+        this.piatti.add(piatto);
+        return false;
+    }
+
+    public void deletePiatto(Piatto piatto){
+        if(this.piatti.isEmpty()){
+            return;
+        }
+        if(this.existPiatto(piatto))
+            this.piatti.remove(piatto);
+    }
+
+    public boolean existPiatto(Piatto piatto){
+        for (Piatto piatto1  : this.piatti) {
+            if(piatto1.equals(piatto))
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Buffet)) return false;
         Buffet buffet = (Buffet) o;
-        return getId() == buffet.getId() && getName().equals(buffet.getName()) && Objects.equals(getDescription(), buffet.getDescription()) && Objects.equals(getChef(), buffet.getChef()) && Objects.equals(getPiatti(), buffet.getPiatti()) && Objects.equals(getUsers(), buffet.getUsers());
+        return getId() == buffet.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDescription(), getChef(), getPiatti(), getUsers());
+        return Objects.hash(getId());
     }
 
     @Override

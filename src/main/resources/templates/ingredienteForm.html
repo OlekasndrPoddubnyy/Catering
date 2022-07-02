@@ -75,9 +75,9 @@
 </div>
 
 <div class="main">
-    <p class="title">Form Chef Update</p>
+    <p class="title">Form Ingrediente</p>
 
-    <form class="form" th:action="@{/admin/chef/update}" method="POST" th:object="${chef}">
+    <form class="form" th:action="@{/admin/ingrediente}" method="POST" th:object="${ingrediente}">
         <div class="errori" th:if="${#fields.hasGlobalErrors()}">
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">errore</p>
         </div>
@@ -86,14 +86,14 @@
             <span>Name</span>
         </div>
         <div class="inputBox" >
-            <input type="text" required th:field="*{lastName}">
-            <span>LastName</span>
+            <input type="text" required th:field="*{description}">
+            <span>Description</span>
         </div>
         <div class="inputBox" >
-            <input type="text" required th:field="*{nationality}">
-            <span>Nationality</span>
+            <input type="text" required th:field="*{origin}">
+            <span>Origine</span>
         </div>
-        <input type="text" required th:field="*{id}" th:style="'display:none;'">
+
         <button class="submit-btn">Submit</button>
 
     </form>
@@ -102,3 +102,4 @@
 
 <script th:src="@{/js/admin.js}"></script>
 </body>
+</html>

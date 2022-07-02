@@ -62,12 +62,12 @@ public class Ingrediente {
         if (this == o) return true;
         if (!(o instanceof Ingrediente)) return false;
         Ingrediente that = (Ingrediente) o;
-        return getId() == that.getId() && getName().equals(that.getName()) && getDescription().equals(that.getDescription()) && getOrigin().equals(that.getOrigin());
+        return getId() == that.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDescription(), getOrigin());
+        return Objects.hash(getId());
     }
 
     @Override

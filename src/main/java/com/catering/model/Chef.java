@@ -76,12 +76,12 @@ public class Chef {
         if (this == o) return true;
         if (!(o instanceof Chef)) return false;
         Chef chef = (Chef) o;
-        return getId() == chef.getId() && getName().equals(chef.getName()) && getLastName().equals(chef.getLastName()) && getNationality().equals(chef.getNationality()) && Objects.equals(getBuffets(), chef.getBuffets());
+        return getId() == chef.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getLastName(), getNationality(), getBuffets());
+        return Objects.hash(getId());
     }
 
     @Override

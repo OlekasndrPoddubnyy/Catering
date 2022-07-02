@@ -2,6 +2,8 @@ package com.catering.controller;
 
 import com.catering.controller.validator.BuffetValidator;
 import com.catering.model.Buffet;
+import com.catering.model.Ingrediente;
+import com.catering.model.Piatto;
 import com.catering.service.BuffetService;
 import com.catering.service.ChefService;
 import com.catering.service.IngredienteService;
@@ -94,5 +96,37 @@ public class BuffetController {
         }
         model.addAttribute("buffet", buffet);
         return "buffetFormUpdate";
+    }
+
+    @GetMapping("buffet/modPiatto/{id}")
+    public String modPiattiBuffet(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("piatti", this.piattoService.tutti());
+        model.addAttribute("buffet", this.buffetService.buffetPerId(id));
+        return "addPiatto";
+    }
+
+    @GetMapping("buffet/addPiatto/{id}/{id2}")
+    public String addPiattoBuffet(@PathVariable("id") Long id,
+                                       @PathVariable("id2") Long idPt,
+                                       Model model) {
+        Buffet buffet = this.buffetService.buffetPerId(id);
+        Piatto piatto = this.piattoService.piattoPerId(idPt);
+        buffet.addPiatto(piatto);
+        this.buffetService.inserisci(buffet);
+        model.addAttribute("piatti", this.piattoService.tutti());
+        model.addAttribute("buffet", this.buffetService.buffetPerId(id));
+        return "addPiatto";
+    }
+
+    @GetMapping("buffet/deletePiatto/{id}/{id2}")
+    public String deletePiattoBuffet(@PathVariable("id") Long id,
+                                          @PathVariable("id2") Long idPt, Model model){
+        Buffet buffet = this.buffetService.buffetPerId(id);
+        Piatto piatto = this.piattoService.piattoPerId(idPt);
+        buffet.deletePiatto(piatto);
+        this.buffetService.inserisci(buffet);
+        model.addAttribute("piatti", this.piattoService.tutti());
+        model.addAttribute("buffet", this.buffetService.buffetPerId(id));
+        return "addPiatto";
     }
 }

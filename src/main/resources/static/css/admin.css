@@ -274,10 +274,17 @@ body{
 }
 
 .table-data, .header__item {
-    flex: 1 1 10%;
-    text-align:center;
-    margin: auto 20px;
+    display: flex;
+    flex-direction: column;
+    text-align:left;
+    margin: auto 50px;
+    width: 160px;
 }
+
+.table-data p{
+    margin-top: 5px;
+}
+
 
 .header__item {
     text-transform:uppercase;
@@ -321,9 +328,28 @@ body{
 .table-data.bottoni{
     display: flex;
     flex-direction: row;
+    max-width: 400px;
+    text-align: right;
+    right: 20px;
 }
 
 .table-data.bottoni .btn2{
     display: flex;
     flex-direction: column;
+    width: auto;
+    margin: auto 10px;
+}
+
+.btn.presente{
+    color: #fff;
+    background: #8360c3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2ebf91, #8360c3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.btn.presente:hover{
+    color: #313131;
+    background: #DCE35B;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #45B649, #DCE35B);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #45B649, #DCE35B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }

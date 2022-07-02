@@ -2,6 +2,7 @@ package com.catering.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,8 +20,7 @@ public class Piatto {
     private String description;
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "piatto_id")
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @OrderBy("name desc")
     private List<Ingrediente> ingredienti;
 
@@ -58,17 +58,47 @@ public class Piatto {
         this.ingredienti = ingredienti;
     }
 
+    public boolean addIngrediente(Ingrediente ingrediente){
+        if(this.ingredienti.isEmpty()){
+            this.ingredienti = new ArrayList<>();
+            this.ingredienti.add(ingrediente);
+            return true;
+        }
+        for (Ingrediente ingrediente1  : this.ingredienti) {
+            if(ingrediente1.equals(ingrediente))
+               return false;
+        }
+        this.ingredienti.add(ingrediente);
+        return false;
+    }
+
+    public void deleteIngrediente(Ingrediente ingrediente){
+        if(this.ingredienti.isEmpty()){
+            return;
+        }
+        if(this.existIngrediente(ingrediente))
+            this.ingredienti.remove(ingrediente);
+    }
+
+    public boolean existIngrediente(Ingrediente ingrediente){
+        for (Ingrediente ingrediente1  : this.ingredienti) {
+            if(ingrediente1.equals(ingrediente))
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Piatto)) return false;
         Piatto piatto = (Piatto) o;
-        return getId() == piatto.getId() && getName().equals(piatto.getName()) && Objects.equals(getDescription(), piatto.getDescription()) && getIngredienti().equals(piatto.getIngredienti());
+        return getId() == piatto.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDescription(), getIngredienti());
+        return Objects.hash(getId());
     }
 
     @Override

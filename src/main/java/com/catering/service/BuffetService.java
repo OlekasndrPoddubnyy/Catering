@@ -1,7 +1,6 @@
 package com.catering.service;
 
 import com.catering.model.Buffet;
-import com.catering.model.Chef;
 import com.catering.repository.BuffetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

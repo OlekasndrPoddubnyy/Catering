@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/css/forms.css}" />
     <link rel="stylesheet" th:href="@{/css/admin.css}" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <title>Chef Form</title>
+    <title>Aggiungi Ingredienti al Buffet</title>
 </head>
 <body>
 <!--Navigation Menu-->
@@ -75,30 +74,39 @@
 </div>
 
 <div class="main">
-    <p class="title">Form Chef Update</p>
 
-    <form class="form" th:action="@{/admin/chef/update}" method="POST" th:object="${chef}">
-        <div class="errori" th:if="${#fields.hasGlobalErrors()}">
-            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">errore</p>
-        </div>
-        <div class="inputBox" >
-            <input type="text" name="name" required th:field="*{name}">
-            <span>Name</span>
-        </div>
-        <div class="inputBox" >
-            <input type="text" required th:field="*{lastName}">
-            <span>LastName</span>
-        </div>
-        <div class="inputBox" >
-            <input type="text" required th:field="*{nationality}">
-            <span>Nationality</span>
-        </div>
-        <input type="text" required th:field="*{id}" th:style="'display:none;'">
-        <button class="submit-btn">Submit</button>
+    <p class="title">Aggiungi Ingredienti</p>
 
-    </form>
+    <div class="containerInner">
+        <div class="table">
+            <div class="table-header">
+                <div class="header__item"><a class="filter__link" href="#">Nome</a></div>
+                <div class="header__item"><a class="filter__link" href="#">Descrizione</a></div>
+                <div class="header__item"><a class="filter__link" href="#">Origine</a></div>
+                <div class="header__item"><a class="filter__link" href="#"></a></div>
+            </div>
+            <div class="table-content">
+                <div class="table-row" th:each="ingrediente : ${ingredienti}">
+                    <div class="table-data" th:text="${ingrediente.name}">Assaggio Mediterraneo</div>
+                    <div class="table-data" th:text="${ingrediente.description}">Descrizione</div>
+                    <div class="table-data" th:text="${ingrediente.origin}">Origine</div>
+                    <div class="table-data bottoni">
+                        <div class="btn2">
+                            <a th:if="${!piatto.existIngrediente(ingrediente)}"
+                               th:href="@{'/piatto/addAttribute' + '/' + ${piatto.id} + '/' + ${ingrediente.id}}">
+                                <div class="btn">Aggiungi</div></a>
+                            <a th:unless="${!piatto.existIngrediente(ingrediente)}"
+                               th:href="@{'/piatto/deleteAttribute' + '/' + ${piatto.id} + '/' + ${ingrediente.id}}">
+                                <div class="btn presente">Elimina</div></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
 <script th:src="@{/js/admin.js}"></script>
 </body>
+</html>
