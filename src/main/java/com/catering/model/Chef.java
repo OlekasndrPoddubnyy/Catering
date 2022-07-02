@@ -26,18 +26,10 @@ public class Chef {
     /* La strategia di cascade è all infatti buffet dipendono interamente dallo chef, questo implica che
     * non possiamo cambiare lo scef ad un dato buffet, inoltre fetch è EAGER perché ci interessa  sempre
     * avere diponibili i buffet di un certo chef*/
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @OrderBy("name desc")
     private List<Buffet> buffets;
 
-    public Chef(){}
-
-    public Chef(String name, String lastName, String nationality, List<Buffet> buffets){
-        this.name = name;
-        this.lastName = lastName;
-        this.nationality = nationality;
-        this.buffets = new ArrayList<>(buffets);
-    }
 
     public long getId() {
         return id;

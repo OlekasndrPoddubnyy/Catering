@@ -1,5 +1,6 @@
 package com.catering.service;
 
+import com.catering.model.Buffet;
 import com.catering.model.Ingrediente;
 import com.catering.repository.IngredienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,9 @@ public class IngredienteService {
     }
 
     @Transactional
-    public void deleteIngrediente(Ingrediente ingrediente) {
-        ingredienteRepository.delete(ingrediente);
+    public void deleteIngrediente(Long id) {
+        Optional<Ingrediente> optional = ingredienteRepository.findById(id);
+        if (optional.isPresent())
+            this.ingredienteRepository.delete(optional.get());
     }
 }

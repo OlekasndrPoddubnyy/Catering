@@ -32,6 +32,14 @@ public class IngredienteValidator implements Validator {
         }
     }
 
+    public void validate2(Object o, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required");
+
+        if (!errors.hasErrors()) {
+            logger.debug("confermato: valori non nulli");
+        }
+    }
+
     @Override
     public boolean supports(Class<?> aClass) { return Ingrediente.class.equals(aClass);}
 }

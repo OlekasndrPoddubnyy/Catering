@@ -2,8 +2,6 @@ package com.catering.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,19 +27,15 @@ public class Buffet {
     /* Uso la strategia di cascade ALL perché tutti i piatti dipendono dal buffet,
     * mentre la strategia di fetch è EAGER, perché ci interessa sempre sapere i piatti
     * che compongono un buffet */
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "piatto_id")
     @OrderBy("name desc")
     private List<Piatto> piatti;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OrderBy("nome desc")
+    private List<User> users;
 
-    public Buffet (){}
-
-    public Buffet (String name, String description, Chef chef, List<Piatto> piatti){
-        this.name = name;
-        this.description = description;
-        this.chef = chef;
-        this.piatti = new ArrayList<>(piatti);
-    }
 
     public long getId() {
         return id;
@@ -83,17 +77,25 @@ public class Buffet {
         this.piatti = piatti;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Buffet)) return false;
         Buffet buffet = (Buffet) o;
-        return getId() == buffet.getId() && getName().equals(buffet.getName()) && Objects.equals(getDescription(), buffet.getDescription()) && getChef().equals(buffet.getChef()) && Objects.equals(getPiatti(), buffet.getPiatti());
+        return getId() == buffet.getId() && getName().equals(buffet.getName()) && Objects.equals(getDescription(), buffet.getDescription()) && Objects.equals(getChef(), buffet.getChef()) && Objects.equals(getPiatti(), buffet.getPiatti()) && Objects.equals(getUsers(), buffet.getUsers());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDescription(), getChef(), getPiatti());
+        return Objects.hash(getId(), getName(), getDescription(), getChef(), getPiatti(), getUsers());
     }
 
     @Override
@@ -104,6 +106,7 @@ public class Buffet {
                 ", description='" + description + '\'' +
                 ", chef=" + chef +
                 ", piatti=" + piatti +
+                ", users=" + users +
                 '}';
     }
 }

@@ -21,7 +21,7 @@ public class BuffetValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nome", "required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required");
 
         if (!errors.hasErrors()) {
             logger.debug("confermato: valori non nulli");
@@ -29,6 +29,14 @@ public class BuffetValidator implements Validator {
                 logger.debug("e' un duplicato");
                 errors.reject("duplicato");
             }
+        }
+    }
+
+    public void validate2(Object o, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required");
+
+        if (!errors.hasErrors()) {
+            logger.debug("confermato: valori non nulli");
         }
     }
 

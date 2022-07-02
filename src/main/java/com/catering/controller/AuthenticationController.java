@@ -1,5 +1,6 @@
 package com.catering.controller;
 
+import com.catering.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,6 @@ import com.catering.controller.validator.CredentialsValidator;
 import com.catering.controller.validator.UserValidator;
 import com.catering.model.Credentials;
 import com.catering.model.User;
-import com.catering.service.CredentialsService;
 
 @Controller
 public class AuthenticationController {
@@ -27,6 +27,21 @@ public class AuthenticationController {
 
     @Autowired
     private CredentialsValidator credentialsValidator;
+
+    @Autowired
+    private ChefService chefService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PiattoService piattoService;
+
+    @Autowired
+    private IngredienteService ingredienteService;
+
+    @Autowired
+    private BuffetService buffetService;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegisterForm (Model model) {
@@ -51,6 +66,10 @@ public class AuthenticationController {
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
         if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+            model.addAttribute("buffets", this.buffetService.tutti());
+            model.addAttribute("chefs", this.chefService.tutti());
+            model.addAttribute("piatti", this.piattoService.tutti());
+            model.addAttribute("ingredienti", this.ingredienteService.tutti());
             return "admin/home";
         }
         return "home";

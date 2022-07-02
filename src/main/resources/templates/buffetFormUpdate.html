@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/forms.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <title>Buffet Form</title>
+</head>
+<body>
+<!--Navigation Menu-->
+<div class="navigation">
+    <ul>
+        <li class="list">
+            <b></b>
+            <b></b>
+            <div class="menu-btn">
+                    <span class="icon toggle" title="Menu">
+                        <i class="uil uil-bars icona open"></i>
+                        <i class="uil uil-multiply icona close"></i>
+                    </span>
+            </div>
+        </li>
+        <li class="list active">
+            <b></b>
+            <b></b>
+            <a th:href="@{/default}">
+                <span class="icon" title="Home"><i class="uil uil-estate icona"></i></span>
+                <span class="title">Home</span>
+            </a>
+        </li>
+        <li class="list">
+            <b></b>
+            <b></b>
+            <a th:href="@{/default#Chef}">
+                <span class="icon" title="Chef"><i class="uil uil-user icona"></i></ion-icon></span>
+                <span class="title">Chef</span>
+            </a>
+        </li>
+        <li class="list">
+            <b></b>
+            <b></b>
+            <a th:href="@{/default#Buffet}">
+                <span class="icon" title="Buffet"><i class="uil uil-clipboard-notes icona"></i></span>
+                <span class="title">Buffet</span>
+            </a>
+        </li>
+        <li class="list">
+            <b></b>
+            <b></b>
+            <a href="#">
+                <span class="icon" title="Piatti"><i class="uil uil-crockery icona"></i></span>
+                <span class="title">Piatti</span>
+            </a>
+        </li>
+        <li class="list">
+            <b></b>
+            <b></b>
+            <a href="#">
+                <span class="icon" title="Ingredienti"><i class="uil uil-pizza-slice icona"></i></span>
+                <span class="title">Ingredienti</span>
+            </a>
+        </li>
+        <li class="list">
+            <b></b>
+            <b></b>
+            <a th:href="@{/logout}">
+                <span class="icon" title="Logout"><i class="uil uil-signout icona"></i></span>
+                <span class="title">Logout</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="main">
+    <p class="title">Form Buffet Update</p>
+
+    <form class="form" th:action="@{/admin/buffet/update}" method="POST" th:object="${buffet}">
+        <div class="errori" th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">errore</p>
+        </div>
+        <div class="inputBox" >
+            <input type="text" name="name" required th:field="*{name}">
+            <span>Name</span>
+        </div>
+        <div class="inputBox" >
+            <input type="text" required th:field="*{description}">
+            <span>Descriprion</span>
+        </div>
+        <input type="text" required th:field="*{id}" th:style="'display:none;'">
+        <button class="submit-btn">Submit</button>
+
+    </form>
+
+</div>
+
+<script th:src="@{/js/admin.js}"></script>
+</body>

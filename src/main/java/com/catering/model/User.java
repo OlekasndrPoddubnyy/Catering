@@ -1,10 +1,8 @@
 package com.catering.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users") // user in postgres è una parola riservata
@@ -14,6 +12,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
+
+    //per gli utenti do la possibilità di salvare
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OrderBy("name desc")
+    private List<Buffet> bookmarks;
+
+    public List<Buffet> getBookmarks() {
+        return bookmarks;
+    }
+
+    public void setBookmarks(List<Buffet> bookmarks) {
+        this.bookmarks = bookmarks;
+    }
 
     public Long getId() {
         return id;
@@ -31,5 +42,26 @@ public class User {
         this.nome = nome;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getId(), user.getId()) && Objects.equals(getNome(), user.getNome()) && Objects.equals(getBookmarks(), user.getBookmarks());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNome(), getBookmarks());
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", bookmark=" + bookmarks +
+                '}';
+    }
 }
 

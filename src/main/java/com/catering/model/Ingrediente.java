@@ -23,20 +23,7 @@ public class Ingrediente {
     @Column(nullable = false)
     private String origin;
 
-    /* Le strategie di cascade e fetch sono adottate in baese al fatto che un ingrediente
-    * è fa parte di un piatto perciò di sicuro dovrò saperne l'appartenenza*/
-    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "piatto_id")
-    private Piatto piatto;
 
-    public Ingrediente(){}
-
-    public Ingrediente(String name, String description, String origin, Piatto piatto){
-        this.name =name;
-        this.description = description;
-        this.origin = origin;
-        this.piatto = piatto;
-    }
 
     public long getId() {
         return id;
@@ -70,25 +57,17 @@ public class Ingrediente {
         this.origin = origin;
     }
 
-    public Piatto getPiatto() {
-        return piatto;
-    }
-
-    public void setPiatto(Piatto piatto) {
-        this.piatto = piatto;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Ingrediente)) return false;
         Ingrediente that = (Ingrediente) o;
-        return getId() == that.getId() && getName().equals(that.getName()) && getDescription().equals(that.getDescription()) && getOrigin().equals(that.getOrigin()) && getPiatto().equals(that.getPiatto());
+        return getId() == that.getId() && getName().equals(that.getName()) && getDescription().equals(that.getDescription()) && getOrigin().equals(that.getOrigin());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDescription(), getOrigin(), getPiatto());
+        return Objects.hash(getId(), getName(), getDescription(), getOrigin());
     }
 
     @Override
@@ -98,7 +77,6 @@ public class Ingrediente {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", origin='" + origin + '\'' +
-                ", piatto=" + piatto +
                 '}';
     }
 }

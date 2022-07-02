@@ -1,6 +1,7 @@
 package com.catering.service;
 
 import com.catering.model.Buffet;
+import com.catering.model.Chef;
 import com.catering.repository.BuffetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,15 +33,17 @@ public class BuffetService {
 
     @Transactional
     public boolean alreadyExists(Buffet buffet) {
-        List<Buffet> buffets = buffetRepository.findByName(buffet.getName());
-        if (buffets.size() > 0)
+        Optional<Buffet> optional = buffetRepository.findById(buffet.getId());
+        if (optional.isPresent())
             return true;
         else
             return false;
     }
 
     @Transactional
-    public void deleteBuffet(Buffet buffet) {
-        buffetRepository.delete(buffet);
+    public void deleteBuffet(Long id) {
+        Optional<Buffet> optional = buffetRepository.findById(id);
+        if (optional.isPresent())
+            this.buffetRepository.delete(optional.get());
     }
 }

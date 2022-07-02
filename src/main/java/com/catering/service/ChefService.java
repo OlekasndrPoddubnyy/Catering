@@ -32,16 +32,18 @@ public class ChefService {
 
     @Transactional
     public boolean alreadyExists(Chef chef) {
-        List<Chef> chefs = chefRepository.findByName(chef.getName());
-        if (chefs.size() > 0)
+        Optional<Chef> optional = chefRepository.findById(chef.getId());
+        if (optional.isPresent())
             return true;
         else
             return false;
     }
 
     @Transactional
-    public void deleteChef(Chef chef) {
-        chefRepository.delete(chef);
+    public void deleteChef(Long id) {
+        Optional<Chef> optional = chefRepository.findById(id);
+        if (optional.isPresent())
+            this.chefRepository.delete(optional.get());
     }
 
 

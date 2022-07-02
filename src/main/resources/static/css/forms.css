@@ -1,0 +1,95 @@
+.form{
+    margin-top: 40px;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.inputBox{
+    position: relative;
+    width: 250px;
+}
+
+.inputBox input{
+    width: 100%;
+    height: auto;
+    padding: 15px 30px;
+    border: 1px solid #552a72;
+    border-radius: 30px;
+    background: rgb(255, 255, 255);
+    outline: none;
+    color: #131313;
+    font-size: 1em;
+    transition: all 0.5s ease-in-out;
+}
+
+.inputBox span{
+    position: absolute;
+    left: 30px;
+    padding: 18px;
+    pointer-events: none;
+    font-size: 1em;
+    color: rgba(0, 0, 0, 0.28);
+    text-transform: uppercase;
+    transition: all 0.25s ease-in-out;
+}
+
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span{
+    color: #552a72;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.75em;
+    padding: 0 10px;
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+}
+
+.submit-btn{
+    font-size: 1.2em;
+    margin-top: 10px;
+    padding: 10px 20px;
+    height: auto;
+    width: auto;
+    border-radius: 20px;
+    background: #8360c3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2ebf91, #8360c3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2ebf91, #8360c3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border: 1px solid black;
+    color: #fff;
+    border: none;
+    outline: none;
+    transition: all 0.8s ease-in-out;
+}
+
+.submit-btn:hover{
+    color: #313131;
+    background: #DCE35B;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #45B649, #DCE35B);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #45B649, #DCE35B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.errori {
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 80%;
+    padding: 2px 15px;
+    border-radius: 10px;
+    height: auto;
+    background: #ff101035;
+    color: #ff0000;
+    transition: all 0.35s ease-in-out;
+    cursor: default;
+}
+
+.errori:hover{
+    background: #ff101099;
+    color: #ffffff;
+}
+
+.description{
+    height: auto;
+}

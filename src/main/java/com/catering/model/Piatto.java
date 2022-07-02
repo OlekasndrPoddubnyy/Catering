@@ -2,7 +2,6 @@ package com.catering.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,22 +18,12 @@ public class Piatto {
 
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "buffet_id")
-    private Buffet buffet;
 
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "piatto_id")
     @OrderBy("name desc")
     private List<Ingrediente> ingredienti;
 
-    public Piatto(){}
-
-    public Piatto(String name, String description, Buffet buffet, List<Ingrediente> ingredienti){
-        this.name = name;
-        this.description = description;
-        this.buffet = buffet;
-        this.ingredienti = new ArrayList<>(ingredienti);
-    }
 
     public long getId() {
         return id;
@@ -60,13 +49,6 @@ public class Piatto {
         this.description = description;
     }
 
-    public Buffet getBuffet() {
-        return buffet;
-    }
-
-    public void setBuffet(Buffet buffet) {
-        this.buffet = buffet;
-    }
 
     public List<Ingrediente> getIngredienti() {
         return ingredienti;
@@ -81,12 +63,12 @@ public class Piatto {
         if (this == o) return true;
         if (!(o instanceof Piatto)) return false;
         Piatto piatto = (Piatto) o;
-        return getId() == piatto.getId() && getName().equals(piatto.getName()) && Objects.equals(getDescription(), piatto.getDescription()) && getBuffet().equals(piatto.getBuffet()) && getIngredienti().equals(piatto.getIngredienti());
+        return getId() == piatto.getId() && getName().equals(piatto.getName()) && Objects.equals(getDescription(), piatto.getDescription()) && getIngredienti().equals(piatto.getIngredienti());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDescription(), getBuffet(), getIngredienti());
+        return Objects.hash(getId(), getName(), getDescription(), getIngredienti());
     }
 
     @Override
@@ -95,7 +77,6 @@ public class Piatto {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", buffet=" + buffet +
                 ", ingredienti=" + ingredienti +
                 '}';
     }
