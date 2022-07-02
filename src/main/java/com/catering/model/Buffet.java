@@ -20,14 +20,14 @@ public class Buffet {
 
     /* Uso la strategia di cascade solo persist in quanto potrei crearli simltanemente,
     *  mentre la strategia di fetch è EAGER, perché dobbiamo sapere lo chef di ogni buffet */
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "chef_id")
     private Chef chef;
 
     /* Uso la strategia di cascade ALL perché tutti i piatti dipendono dal buffet,
     * mentre la strategia di fetch è EAGER, perché ci interessa sempre sapere i piatti
     * che compongono un buffet */
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "piatto_id")
     @OrderBy("name desc")
     private List<Piatto> piatti;

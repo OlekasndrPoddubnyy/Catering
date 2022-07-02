@@ -317,3 +317,13 @@ body{
 .table .btn:hover{
     background: #5d00de;
 }
+
+.table-data.bottoni{
+    display: flex;
+    flex-direction: row;
+}
+
+.table-data.bottoni .btn2{
+    display: flex;
+    flex-direction: column;
+}

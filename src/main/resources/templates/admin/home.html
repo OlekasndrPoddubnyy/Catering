@@ -49,7 +49,7 @@
             <li class="list">
                 <b></b>
                 <b></b>
-                <a href="#">
+                <a href="#Piatto">
                     <span class="icon" title="Piatti"><i class="uil uil-crockery icona"></i></span>
                     <span class="title">Piatti</span>
                 </a>
@@ -57,7 +57,7 @@
             <li class="list">
                 <b></b>
                 <b></b>
-                <a href="#">
+                <a href="#Ingrediente">
                     <span class="icon" title="Ingredienti"><i class="uil uil-pizza-slice icona"></i></span>
                     <span class="title">Ingredienti</span>
                 </a>
@@ -96,10 +96,15 @@
                                 <p th:if="${buffetChef}" th:text="${buffetChef.name}">Buffet1</p>
                                 <p th:unless="${buffetChef}"> Nessuno </p>
                             </div>
-                            <div class="table-data">
-                                <a th:href="@{/admin/home}"><div class="btn">Agiungi Buffet</div></a>
-                                <a th:href="@{'/chef/update' + '/' + ${chef.id}}"><div class="btn">Modifica</div></a>
-                                <a th:href="@{'/chef/delete' + '/' + ${chef.id}}" ><div class="btn">Cancella</div></a>
+                            <div class="table-data bottoni">
+                                <div class="btn2">
+                                    <a th:href="@{/admin/home}"><div class="btn">Agiungi Buffet</div></a>
+                                    <a th:href="@{/admin/home}"><div class="btn">Togli Buffet</div></a>
+                                </div>
+                                <div class="btn2">
+                                    <a th:href="@{'/chef/update' + '/' + ${chef.id}}"><div class="btn">Modifica</div></a>
+                                    <a th:href="@{'/chef/delete' + '/' + ${chef.id}}" ><div class="btn">Cancella</div></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -129,9 +134,81 @@
                             <p th:unless="${buffetPiatto}"> Nessuno </p>
                         </div>
                         <div class="table-data">
-                            <a th:href="@{/admin/home}"><div class="btn">Agiungi Buffet</div></a>
-                            <a th:href="@{'/buffet/update' + '/' + ${buffet.id}}"><div class="btn">Modifica</div></a>
-                            <a th:href="@{'/buffet/delete' + '/' + ${buffet.id}}" ><div class="btn">Cancella</div></a>
+                            <div class="btn2">
+                                <a th:href="@{/admin/home}"><div class="btn">Agiungi Chef</div></a>
+                                <a th:href="@{/admin/home}"><div class="btn">Modifica Chef</div></a>
+                            </div>
+                            <div class="btn2">
+                                <a th:href="@{/admin/home}"><div class="btn">Agiungi Piatto</div></a>
+                                <a th:href="@{/admin/home}"><div class="btn">Elimina Piatto</div></a>
+                            </div>
+                            <div class="btn2">
+                                <a th:href="@{'/buffet/update' + '/' + ${buffet.id}}"><div class="btn">Modifica</div></a>
+                                <a th:href="@{'/buffet/delete' + '/' + ${buffet.id}}" ><div class="btn">Cancella</div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="containerInner">
+            <p class="impostazioni-title" id="Piatto">Impostazioni Piatto</p>
+            <div class="lista-impostazioni">
+                <a class="btn-creat" th:href="@{/admin/piatto}"><div class="creazione">Aggiungi Piatto</div></a>
+            </div>
+            <div class="table">
+                <div class="table-header">
+                    <div class="header__item"><a class="filter__link" href="#">Nome</a></div>
+                    <div class="header__item"><a class="filter__link" href="#">Descrizione</a></div>
+                    <div class="header__item"><a class="filter__link" href="#">Ingredienti</a></div>
+                    <div class="header__item"><a class="filter__link" href="#"></a></div>
+                </div>
+                <div class="table-content">
+                    <div class="table-row" th:each="piatto : ${piatti}">
+                        <div class="table-data" th:text="${piatto.name}">Assaggio Mediterraneo</div>
+                        <div class="table-data" th:text="${piatto.description}">Descrizione</div>
+                        <div class="table-data" th:each="piattoIngrediente : ${piatto.ingredienti}">
+                            <p th:if="${piattoPiatto}" th:text="${piattoPiatto}">Buffet1</p>
+                            <p th:unless="${piattoPiatto}"> Nessuno </p>
+                        </div>
+                        <div class="table-data">
+                            <div class="btn2">
+                                <a th:href="@{/admin/home}"><div class="btn">Agiungi Ingrediente</div></a>
+                                <a th:href="@{/admin/home}"><div class="btn">Elimina Ingrediente</div></a>
+                            </div>
+                            <div class="btn2">
+                                <a th:href="@{'/piatto/update' + '/' + ${piatto.id}}"><div class="btn">Modifica</div></a>
+                                <a th:href="@{'/piatto/delete' + '/' + ${piatto.id}}" ><div class="btn">Cancella</div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="containerInner">
+            <p class="impostazioni-title" id="#Ingrediente">Impostazioni #Ingrediente</p>
+            <div class="lista-impostazioni">
+                <a class="btn-creat" th:href="@{/admin/ingrediente}"><div class="creazione">Aggiungi Ingrediente</div></a>
+            </div>
+            <div class="table">
+                <div class="table-header">
+                    <div class="header__item"><a class="filter__link" href="#">Nome</a></div>
+                    <div class="header__item"><a class="filter__link" href="#">Descrizione</a></div>
+                    <div class="header__item"><a class="filter__link" href="#">Origine</a></div>
+                    <div class="header__item"><a class="filter__link" href="#"></a></div>
+                </div>
+                <div class="table-content">
+                    <div class="table-row" th:each="ingrediente : ${ingredienti}">
+                        <div class="table-data" th:text="${ingrediente.name}">Assaggio Mediterraneo</div>
+                        <div class="table-data" th:text="${ingrediente.description}">Descrizione</div>
+                        <div class="table-data" th:text="${ingrediente.origin}">Origine</div>
+                        <div class="table-data">
+                            <div class="btn2">
+                                <a th:href="@{'/ingrediente/update' + '/' + ${ingrediente.id}}"><div class="btn">Modifica</div></a>
+                                <a th:href="@{'/ingrediente/delete' + '/' + ${ingrediente.id}}" ><div class="btn">Cancella</div></a>
+                            </div>
                         </div>
                     </div>
                 </div>
