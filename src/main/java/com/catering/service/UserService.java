@@ -57,5 +57,15 @@ public class UserService {
             result.add(user);
         return result;
     }
+
+    @Transactional
+    public void addBookmark(Long idU, Long idB){
+        this.userRepository.aggiungiBuffetUser(idU,idB);
+    }
+
+    @Transactional
+    public void deleteBookmark(Long idU, Long idB){
+        this.userRepository.cancellaBuffetUser(idU,idB);
+    }
 }
 

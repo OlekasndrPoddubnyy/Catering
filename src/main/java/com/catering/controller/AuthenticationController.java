@@ -2,6 +2,8 @@ package com.catering.controller;
 
 import com.catering.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ public class AuthenticationController {
     private CredentialsService credentialsService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private UserValidator userValidator;
 
     @Autowired
@@ -30,9 +35,6 @@ public class AuthenticationController {
 
     @Autowired
     private ChefService chefService;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private PiattoService piattoService;
@@ -71,6 +73,12 @@ public class AuthenticationController {
             model.addAttribute("piatti", this.piattoService.tutti());
             model.addAttribute("ingredienti", this.ingredienteService.tutti());
             return "admin/home";
+        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            Credentials credentials1 = this.credentialsService.getCredentials(currentUserName);
+            model.addAttribute("user", this.userService.getUser(credentials1.getUser().getId()));
         }
         return "home";
     }

@@ -10,11 +10,30 @@
     <title th:text="#{header.menuUtente}"></title>
 </head>
 <body>
-    <nav th:replace="fragments/base.html :: intestazione"></nav>
+<!-- NAVIGATION bar -->
+<nav th:replace="fragments/base.html :: intestazione"></nav>
 
 
+<div class="main">
+    <h1 class="main-title">Bookmarks</h1>
+    <div class="container-main">
+        <div class="card" th:each="bookmark : ${user.bookmarks}">
+            <div class="box">
+                <div class="content">
+                    <h2 th:text="${bookmark.id}">01</h2>
+                    <h3 th:text="${bookmark.name}">Card One</h3>
+                    <p th:text="${bookmark.description}"> Lorem ipsum dolor sit amet</p>
+                    <a class="links" href="#">Read More</a>
+                    <a class="links" th:href="@{'/userProfile/deleteBuffet' + '/' + ${bookmark.id}}">Unbookmark</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <footer th:replace="fragments/base.html :: fondo"></footer>
+
+<!-- footer -->
+<footer th:replace="fragments/base.html :: fondo"></footer>
 
 <script type="text/javascript" th:src="@{/js/base.js}"></script>
 </body>

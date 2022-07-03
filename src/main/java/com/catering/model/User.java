@@ -3,6 +3,7 @@ package com.catering.model;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users") // user in postgres è una parola riservata
@@ -14,15 +15,15 @@ public class User {
     private String nome;
 
     //per gli utenti do la possibilità di salvare
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}, fetch = FetchType.EAGER)
     @OrderBy("name desc")
-    private List<Buffet> bookmarks;
+    private Set<Buffet> bookmarks;
 
-    public List<Buffet> getBookmarks() {
+    public Set<Buffet> getBookmarks() {
         return bookmarks;
     }
 
-    public void setBookmarks(List<Buffet> bookmarks) {
+    public void setBookmarks(Set<Buffet> bookmarks) {
         this.bookmarks = bookmarks;
     }
 
@@ -42,17 +43,21 @@ public class User {
         this.nome = nome;
     }
 
+    public boolean isBookmarked(Buffet buffet){
+        return this.bookmarks.contains(buffet);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return Objects.equals(getId(), user.getId()) && Objects.equals(getNome(), user.getNome()) && Objects.equals(getBookmarks(), user.getBookmarks());
+        return Objects.equals(getId(), user.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNome(), getBookmarks());
+        return Objects.hash(getId());
     }
 
     @Override

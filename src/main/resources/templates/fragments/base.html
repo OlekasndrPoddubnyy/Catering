@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:fragment="headerfiles(title)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,8 +16,6 @@
             <div class="menu">
                 <ul class="nav-links">
                     <li><a th:href="@{/}">Home</a></li>
-                    <li><a th:href="@{/logout}" >Menu</a></li>
-                    <li><a th:href="@{/logout}" >Chef</a></li>
                     <li sec:authorize="isAuthenticated()"><a th:href="@{/default}" >Profile</a></li>
                     <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"class="is-active" th:text="#{index.logout}">Logout</a></li>
                     <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}"class="is-active" th:text="#{index.login}">Login</a></li>

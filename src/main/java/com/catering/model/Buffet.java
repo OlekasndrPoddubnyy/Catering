@@ -29,10 +29,6 @@ public class Buffet {
     @OrderBy("name desc")
     private Set<Piatto> piatti;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @OrderBy("nome desc")
-    private Set<User> users;
-
 
     public long getId() {
         return id;
@@ -74,13 +70,6 @@ public class Buffet {
         this.piatti = piatti;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 
     public void addPiatto(Piatto piatto){
         if(this.piatti.isEmpty()){
@@ -133,7 +122,6 @@ public class Buffet {
                 ", description='" + description + '\'' +
                 ", chef=" + chef +
                 ", piatti=" + piatti +
-                ", users=" + users +
                 '}';
     }
 }

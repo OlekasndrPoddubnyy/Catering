@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,53 +13,29 @@
 <!-- NAVIGATION bar -->
 <nav th:replace="fragments/base.html :: intestazione"></nav>
 
-<main>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-    <p> Deserunt dolorum fuga labore magni maxime nam non quae quam, quas sit tempore! </p>
-</main>
+
+<div class="main">
+    <h1 class="main-title">Scopri i nostri Buffet</h1>
+    <div class="container-main">
+            <div class="card" th:each="buffet : ${buffets}">
+                <div class="box">
+                    <div class="content">
+                        <h2 th:text="${buffet.id}">01</h2>
+                        <h3 th:text="${buffet.name}">Card One</h3>
+                        <p th:text="${buffet.description}"> Lorem ipsum dolor sit amet</p>
+                        <a class="links" th:href="@{'/buffet' + '/' + ${buffet.id}}">Read More</a>
+                        <div sec:authorize="isAuthenticated()">
+                            <a class="links" th:if="${!user.isBookmarked(buffet)}"
+                               th:href="@{'/user/addBuffet' + '/' + ${buffet.id}}">Bookmark</a>
+                            <a class="links" th:unless="${!user.isBookmarked(buffet)}"
+                               th:href="@{'/userHome/deleteBuffet' + '/' + ${buffet.id}}">Bookmarked</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
 
 <!-- footer -->
 <footer th:replace="fragments/base.html :: fondo"></footer>
