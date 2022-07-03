@@ -1,6 +1,8 @@
 package com.catering.service;
 
 import com.catering.model.Buffet;
+import com.catering.model.Chef;
+import com.catering.model.Piatto;
 import com.catering.repository.BuffetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,10 @@ public class BuffetService {
 
     @Transactional
     public Buffet inserisci(Buffet buffet){ return buffetRepository.save(buffet);}
+
+
+    @Transactional
+    public List<Buffet> inserisciTutti(List<Buffet> buffets){ return (List<Buffet>) buffetRepository.saveAll(buffets);}
 
     @Transactional
     public List<Buffet> tutti() { return (List<Buffet>) buffetRepository.findAll(); }
@@ -44,5 +50,15 @@ public class BuffetService {
         Optional<Buffet> optional = buffetRepository.findById(id);
         if (optional.isPresent())
             this.buffetRepository.delete(optional.get());
+    }
+
+    @Transactional
+    public List<Buffet> findAllByPiattiContains(Piatto piatto){
+        return this.buffetRepository.findAllByPiattiContaining(piatto);
+    }
+
+    @Transactional
+    public List<Buffet> findAllByChefContains(Chef chef){
+        return this.buffetRepository.findAllByChefContaining(chef);
     }
 }

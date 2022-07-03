@@ -20,7 +20,7 @@ public class Piatto {
     private String description;
 
 
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, fetch = FetchType.EAGER )
     @OrderBy("name desc")
     private List<Ingrediente> ingredienti;
 

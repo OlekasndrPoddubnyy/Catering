@@ -2,9 +2,7 @@ package com.catering.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Chef {
@@ -26,9 +24,9 @@ public class Chef {
     /* La strategia di cascade è all infatti buffet dipendono interamente dallo chef, questo implica che
     * non possiamo cambiare lo scef ad un dato buffet, inoltre fetch è EAGER perché ci interessa  sempre
     * avere diponibili i buffet di un certo chef*/
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="chef", cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @OrderBy("name desc")
-    private List<Buffet> buffets;
+    private Set<Buffet> buffets;
 
 
     public long getId() {
@@ -63,12 +61,42 @@ public class Chef {
         this.nationality = nationality;
     }
 
-    public List<Buffet> getBuffets() {
+    public Set<Buffet> getBuffets() {
         return buffets;
     }
 
-    public void setBuffets(List<Buffet> buffets) {
+    public void setBuffets(Set<Buffet> buffets) {
         this.buffets = buffets;
+    }
+
+    public boolean addBuffet(Buffet buffet){
+        if(this.buffets.isEmpty()){
+            this.buffets = new HashSet<>();
+            this.buffets.add(buffet);
+            return true;
+        }
+        for (Buffet buffet1  : this.buffets) {
+            if(buffet1.equals(buffet))
+                return false;
+        }
+        this.buffets.add(buffet);
+        return false;
+    }
+
+    public void deleteBuffet(Buffet buffet){
+        if(this.buffets.isEmpty()){
+            return;
+        }
+        if(this.existBuffet(buffet))
+            this.buffets.remove(buffet);
+    }
+
+    public boolean existBuffet(Buffet buffet){
+        for (Buffet buffet1  : this.buffets) {
+            if(buffet1.equals(buffet))
+                return true;
+        }
+        return false;
     }
 
     @Override

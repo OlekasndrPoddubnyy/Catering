@@ -2,9 +2,7 @@ package com.catering.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Buffet {
@@ -21,20 +19,19 @@ public class Buffet {
 
     /* Uso la strategia di cascade solo persist in quanto potrei crearli simltanemente,
     *  mentre la strategia di fetch è EAGER, perché dobbiamo sapere lo chef di ogni buffet */
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "chef_id")
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, fetch = FetchType.EAGER )
     private Chef chef;
 
     /* Uso la strategia di cascade ALL perché tutti i piatti dipendono dal buffet,
     * mentre la strategia di fetch è EAGER, perché ci interessa sempre sapere i piatti
     * che compongono un buffet */
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, fetch = FetchType.EAGER )
     @OrderBy("name desc")
-    private List<Piatto> piatti;
+    private Set<Piatto> piatti;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @OrderBy("nome desc")
-    private List<User> users;
+    private Set<User> users;
 
 
     public long getId() {
@@ -69,41 +66,41 @@ public class Buffet {
         this.chef = chef;
     }
 
-    public List<Piatto> getPiatti() {
+    public Set<Piatto> getPiatti() {
         return piatti;
     }
 
-    public void setPiatti(List<Piatto> piatti) {
+    public void setPiatti(Set<Piatto> piatti) {
         this.piatti = piatti;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 
-    public boolean addPiatto(Piatto piatto){
+    public void addPiatto(Piatto piatto){
         if(this.piatti.isEmpty()){
-            this.piatti = new ArrayList<>();
+            this.piatti = new HashSet<>();
             this.piatti.add(piatto);
-            return true;
+            return ;
         }
         for (Piatto piatto1  : this.piatti) {
             if(piatto1.equals(piatto))
-                return false;
+                return ;
         }
         this.piatti.add(piatto);
-        return false;
+        return;
     }
 
     public void deletePiatto(Piatto piatto){
         if(this.piatti.isEmpty()){
             return;
         }
-        if(this.existPiatto(piatto))
+        while(this.existPiatto(piatto))
             this.piatti.remove(piatto);
     }
 

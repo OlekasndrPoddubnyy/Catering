@@ -1,20 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <style>div {
-    background-color:lightblue;
-  }</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" th:href="@{/css/base.css}" />
+  <link rel="stylesheet" th:href="@{/css/error.css}" />
+  <link href="https://fonts.googleapis.com/css2?family=Smooch&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Error Page</title>
 </head>
-<h1>Error!</h1>
-<div class="errorPage">
-  <br />
+<!-- NAVIGATION bar -->
+<nav th:replace="fragments/base.html :: intestazione"></nav>
+<!-- Main Section -->
+
+<div id="error">
+  <div id="box"></div>
+  <h3 th:text="${'Error: ' + status}">ERROR 404</h3>
+  <p>Things are a little <span>unstable</span> here</p>
   <p>
     There seems to be a problem with the page you requested
     (
-    <span th:text="${path}" />
+    <p th:text="${path}"></p>
     ).
   </p>
   <p th:text="${'Details: ' + message}" />
-  <p th:text="${'Status: ' + status}" />
+</div>
+
+  <script type="text/javascript" th:src="@{/js/base.js}"></script>
+
 </div>
 </html>

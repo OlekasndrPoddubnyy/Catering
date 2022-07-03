@@ -2,6 +2,7 @@ package com.catering.controller;
 
 import com.catering.controller.validator.IngredienteValidator;
 import com.catering.model.Ingrediente;
+import com.catering.model.Piatto;
 import com.catering.service.BuffetService;
 import com.catering.service.ChefService;
 import com.catering.service.IngredienteService;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class IngredienteController {
@@ -33,7 +36,7 @@ public class IngredienteController {
     @RequestMapping(value = "/admin/ingrediente", method = RequestMethod.GET)
     public String addIngrediente(Model model) {
         model.addAttribute("ingrediente", new Ingrediente());
-        return "ingredienteForm";
+        return "form/ingredienteForm";
     }
 
     @RequestMapping(value = "/ingrediente/{id}", method = RequestMethod.GET)
@@ -60,11 +63,19 @@ public class IngredienteController {
             model.addAttribute("ingredienti", this.ingredienteService.tutti());
             return "/admin/home";
         }
-        return "ingredienteForm";
+        return "form/ingredienteForm";
     }
 
     @GetMapping("ingrediente/delete/{id}")
     public String deleteById(@PathVariable("id") Long id, Model model) {
+        Ingrediente ingrediente = this.ingredienteService.ingredientePerId(id);
+        List<Piatto> piatti = this.piattoService.findAllByIngredientiContaining(ingrediente);
+        if(!piatti.isEmpty()){
+            for (Piatto piatto: piatti) {
+                piatto.deleteIngrediente(ingrediente);
+            }
+        }
+        this.piattoService.inserisciTutti(piatti);
         this.ingredienteService.deleteIngrediente(id);
         model.addAttribute("buffets", this.buffetService.tutti());
         model.addAttribute("chefs", this.chefService.tutti());
@@ -77,7 +88,7 @@ public class IngredienteController {
     @GetMapping("ingrediente/update/{id}")
     public String updateChef(@PathVariable("id") Long id, Model model) {
         model.addAttribute("ingrediente", this.ingredienteService.ingredientePerId(id));
-        return "ingredienteFormUpdate";
+        return "form/ingredienteFormUpdate";
     }
 
     @RequestMapping(value = "/admin/ingrediente/update", method = RequestMethod.POST)
@@ -93,6 +104,6 @@ public class IngredienteController {
             return "admin/home";
         }
         model.addAttribute("ingrediente", ingrediente);
-        return "ingredienteFormUpdate";
+        return "form/ingredienteFormUpdate";
     }
 }

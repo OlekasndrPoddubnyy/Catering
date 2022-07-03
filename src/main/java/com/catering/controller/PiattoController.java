@@ -1,6 +1,7 @@
 package com.catering.controller;
 
 import com.catering.controller.validator.PiattoValidator;
+import com.catering.model.Buffet;
 import com.catering.model.Ingrediente;
 import com.catering.model.Piatto;
 import com.catering.service.BuffetService;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class PiattoController {
@@ -34,7 +37,7 @@ public class PiattoController {
     @RequestMapping(value = "/admin/piatto", method = RequestMethod.GET)
     public String addPiatto(Model model) {
         model.addAttribute("piatto", new Piatto());
-        return "piattoForm";
+        return "form/piattoForm";
     }
 
     @RequestMapping(value = "/piatto/{id}", method = RequestMethod.GET)
@@ -61,11 +64,19 @@ public class PiattoController {
             model.addAttribute("ingredienti", this.ingredienteService.tutti());
             return "admin/home";
         }
-        return "piattoForm";
+        return "form/piattoForm";
     }
 
     @GetMapping("piatto/delete/{id}")
     public String deleteById(@PathVariable("id") Long id, Model model) {
+        Piatto piatto = this.piattoService.piattoPerId(id);
+        List<Buffet> buffets = this.buffetService.findAllByPiattiContains(piatto);
+        if(!buffets.isEmpty()) {
+            for (Buffet buffet : buffets) {
+                    buffet.deletePiatto(piatto);
+            }
+        }
+        this.buffetService.inserisciTutti(buffets);
         this.piattoService.deletePiatto(id);
         model.addAttribute("buffets", this.buffetService.tutti());
         model.addAttribute("chefs", this.chefService.tutti());
@@ -78,7 +89,7 @@ public class PiattoController {
     @GetMapping("piatto/update/{id}")
     public String updatePiatto(@PathVariable("id") Long id, Model model) {
         model.addAttribute("piatto", this.piattoService.piattoPerId(id));
-        return "piattoFormUpdate";
+        return "form/piattoFormUpdate";
     }
 
     @RequestMapping(value = "/admin/piatto/update", method = RequestMethod.POST)
@@ -94,7 +105,7 @@ public class PiattoController {
             return "admin/home";
         }
         model.addAttribute("piatti", piatto);
-        return "piattoFormUpdate";
+        return "form/piattoFormUpdate";
     }
 
     @GetMapping("piatto/mod/{id}")

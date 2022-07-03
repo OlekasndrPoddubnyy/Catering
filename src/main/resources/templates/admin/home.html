@@ -92,14 +92,15 @@
                         <div class="table-row" th:each="chef : ${chefs}">
                             <div class="table-data" th:text="${chef.name} + ' ' + ${chef.lastName} ">Paolo Rossi</div>
                             <div class="table-data" th:text="${chef.nationality}">Ita</div>
-                            <div class="table-data" th:each="buffetChef : ${chef.buffets}">
-                                <p th:if="${buffetChef}" th:text="${buffetChef.name}">Buffet1</p>
-                                <p th:unless="${buffetChef}" th:text="'Nessuno'"> Nessuno </p>
+                            <div class="table-data" th:if="${!chef.getBuffets().isEmpty()}">
+                                <div th:each="chefBuffet : ${chef.buffets}">
+                                    <p th:text="${chefBuffet.name}">Buffet1</p>
+                                </div>
                             </div>
+                            <div class="table-data" th:unless="${!chef.getBuffets().isEmpty()}">Nessuno</div>
                             <div class="table-data bottoni">
                                 <div class="btn2">
-                                    <a th:href="@{/admin/home}"><div class="btn">Agiungi Buffet</div></a>
-                                    <a th:href="@{/admin/home}"><div class="btn">Elimina Buffet</div></a>
+                                    <a th:href="@{'/chef/mod' + '/' + ${chef.id}}"><div class="btn">Modifica Buffet</div></a>
                                 </div>
                                 <div class="btn2">
                                     <a th:href="@{'/chef/update' + '/' + ${chef.id}}"><div class="btn">Modifica</div></a>
@@ -139,7 +140,7 @@
                         <div class="table-data" th:unless="${!buffet.getPiatti().isEmpty()}">Nessuno</div>
                         <div class="table-data bottoni">
                             <div class="btn2">
-                                <a th:href="@{/admin/home}"><div class="btn">Modifica Chef</div></a>
+                                <a th:href="@{'/buffet/modChef' + '/' + ${buffet.id}}"><div class="btn">Modifica Chef</div></a>
                                 <a th:href="@{'/buffet/modPiatto' + '/' + ${buffet.id}}"><div class="btn">Modifica Piatti</div></a>
                             </div>
                             <div class="btn2">

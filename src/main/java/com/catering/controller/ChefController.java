@@ -1,7 +1,10 @@
 package com.catering.controller;
 
 import com.catering.controller.validator.ChefValidator;
+import com.catering.model.Buffet;
 import com.catering.model.Chef;
+import com.catering.model.Ingrediente;
+import com.catering.model.Piatto;
 import com.catering.service.BuffetService;
 import com.catering.service.ChefService;
 import com.catering.service.IngredienteService;
@@ -11,6 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ChefController {
@@ -33,7 +40,7 @@ public class ChefController {
     @RequestMapping(value = "/admin/chef", method = RequestMethod.GET)
     public String addChef(Model model) {
         model.addAttribute("chef", new Chef());
-        return "chefForm";
+        return "form/chefForm";
     }
 
     @RequestMapping(value = "/chef/{id}", method = RequestMethod.GET)
@@ -60,11 +67,21 @@ public class ChefController {
             model.addAttribute("ingredienti", this.ingredienteService.tutti());
             return "admin/home";
         }
-        return "chefForm";
+        return "form/chefForm";
     }
 
     @GetMapping("chef/delete/{id}")
     public String deleteById(@PathVariable("id") Long id, Model model) {
+        Chef chef = this.chefService.chefPerId(id);
+        Set<Buffet> buffets = chef.getBuffets();
+        if(!buffets.isEmpty()){
+            for (Buffet buffet : buffets){
+                buffet.setChef(null);
+            }
+        }
+        List<Buffet> buffets1 = new ArrayList<>();
+        buffets1.addAll(buffets);
+        this.buffetService.inserisciTutti(buffets1);
         this.chefService.deleteChef(id);
         model.addAttribute("buffets", this.buffetService.tutti());
         model.addAttribute("chefs", this.chefService.tutti());
@@ -77,7 +94,7 @@ public class ChefController {
     @GetMapping("chef/update/{id}")
     public String updateChef(@PathVariable("id") Long id, Model model) {
         model.addAttribute("chef", this.chefService.chefPerId(id));
-        return "chefFormUpdate";
+        return "form/chefFormUpdate";
     }
 
     @RequestMapping(value = "/admin/chef/update", method = RequestMethod.POST)
@@ -93,6 +110,49 @@ public class ChefController {
             return "admin/home";
         }
         model.addAttribute("chef", chef);
-        return "chefFormUpdate";
+        return "form/chefFormUpdate";
+    }
+
+    @GetMapping("chef/mod/{id}")
+    public String modBuffetChef(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("buffets", this.buffetService.tutti());
+        model.addAttribute("chef", this.chefService.chefPerId(id));
+        return "addBuffet";
+    }
+
+    @GetMapping("chef/addBuffet/{id}/{id2}")
+    public String addBuffetChef(@PathVariable("id") Long id,
+                                       @PathVariable("id2") Long idBf,
+                                       Model model) {
+        Buffet buffet = this.buffetService.buffetPerId(idBf);
+        List<Chef> chefs = this.chefService.findAllChefContains(buffet);
+        if(!chefs.isEmpty()) {
+            for (Chef chef : chefs) {
+                chef.deleteBuffet(buffet);
+            }
+        }
+        Chef chef = this.chefService.chefPerId(id);
+        chef.addBuffet(buffet);
+        chefs.add(chef);
+        buffet.setChef(chef);
+        this.chefService.inserisciTutti(chefs);
+        this.buffetService.inserisci(buffet);
+        model.addAttribute("buffets", this.buffetService.tutti());
+        model.addAttribute("chef", this.chefService.chefPerId(id));
+        return "addBuffet";
+    }
+
+    @GetMapping("chef/deleteBuffets/{id}/{id2}")
+    public String deleteBuffetChef(@PathVariable("id") Long id,
+                                          @PathVariable("id2") Long idBf, Model model){
+        Buffet buffet = this.buffetService.buffetPerId(idBf);
+        Chef chef = this.chefService.chefPerId(id);
+        chef.deleteBuffet(buffet);
+        buffet.setChef(null);
+        this.chefService.inserisci(chef);
+        this.buffetService.inserisci(buffet);
+        model.addAttribute("buffets", this.buffetService.tutti());
+        model.addAttribute("chef", this.chefService.chefPerId(id));
+        return "addBuffet";
     }
 }
