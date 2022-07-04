@@ -24,7 +24,7 @@ public class Chef {
     /* La strategia di cascade è all infatti buffet dipendono interamente dallo chef, questo implica che
     * non possiamo cambiare lo scef ad un dato buffet, inoltre fetch è EAGER perché ci interessa  sempre
     * avere diponibili i buffet di un certo chef*/
-    @OneToMany(mappedBy="chef", cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @OrderBy("name desc")
     private Set<Buffet> buffets;
 

@@ -10,69 +10,8 @@
     <title>Buffet Form</title>
 </head>
 <body>
-<!--Navigation Menu-->
-<div class="navigation">
-    <ul>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <div class="menu-btn">
-                    <span class="icon toggle" title="Menu">
-                        <i class="uil uil-bars icona open"></i>
-                        <i class="uil uil-multiply icona close"></i>
-                    </span>
-            </div>
-        </li>
-        <li class="list active">
-            <b></b>
-            <b></b>
-            <a th:href="@{/default}">
-                <span class="icon" title="Home"><i class="uil uil-estate icona"></i></span>
-                <span class="title">Home</span>
-            </a>
-        </li>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <a th:href="@{/default#Chef}">
-                <span class="icon" title="Chef"><i class="uil uil-user icona"></i></ion-icon></span>
-                <span class="title">Chef</span>
-            </a>
-        </li>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <a th:href="@{/default#Buffet}">
-                <span class="icon" title="Buffet"><i class="uil uil-clipboard-notes icona"></i></span>
-                <span class="title">Buffet</span>
-            </a>
-        </li>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <a th:href="@{/default#Piatto}">
-                <span class="icon" title="Piatti"><i class="uil uil-crockery icona"></i></span>
-                <span class="title">Piatti</span>
-            </a>
-        </li>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <a th:href="@{/default#Ingrediente}">
-                <span class="icon" title="Ingredienti"><i class="uil uil-pizza-slice icona"></i></span>
-                <span class="title">Ingredienti</span>
-            </a>
-        </li>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <a th:href="@{/logout}">
-                <span class="icon" title="Logout"><i class="uil uil-signout icona"></i></span>
-                <span class="title">Logout</span>
-            </a>
-        </li>
-    </ul>
-</div>
+
+<div th:replace="fragments/base.html :: intestazione-admin"></div>
 
 <div class="main">
     <p class="title">Form Buffet</p>
@@ -86,7 +25,7 @@
             <span>Name</span>
         </div>
         <div class="inputBox" >
-            <input type="text" name="description" required th:field="*{description}">
+            <textarea type="text" name="description" th:field="*{description}"></textarea>
             <span>Description</span>
         </div>
 

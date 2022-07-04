@@ -57,7 +57,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         Credentials credentials = this.credentialsService.getCredentials(currentUserName);
-        this.userService.deleteBookmark(credentials.getUser().getId(), idB);
+        this.userService.deleteBookmark(idB);
         model.addAttribute("user", this.userService.getUser(credentials.getUser().getId()));
         model.addAttribute("buffets",this.buffetService.tutti());
         return "index";
@@ -68,7 +68,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         Credentials credentials = this.credentialsService.getCredentials(currentUserName);
-        this.userService.deleteBookmark(credentials.getUser().getId(), idB);
+        this.userService.deleteBookmark(idB);
         model.addAttribute("user", this.userService.getUser(credentials.getUser().getId()));
         model.addAttribute("buffets",this.buffetService.tutti());
         return "home";

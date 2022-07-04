@@ -1,8 +1,6 @@
 package com.catering.controller;
 
 import com.catering.controller.validator.PiattoValidator;
-import com.catering.model.Buffet;
-import com.catering.model.Ingrediente;
 import com.catering.model.Piatto;
 import com.catering.service.BuffetService;
 import com.catering.service.ChefService;
@@ -14,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 public class PiattoController {
@@ -69,14 +66,7 @@ public class PiattoController {
 
     @GetMapping("piatto/delete/{id}")
     public String deleteById(@PathVariable("id") Long id, Model model) {
-        Piatto piatto = this.piattoService.piattoPerId(id);
-        List<Buffet> buffets = this.buffetService.findAllByPiattiContains(piatto);
-        if(!buffets.isEmpty()) {
-            for (Buffet buffet : buffets) {
-                    buffet.deletePiatto(piatto);
-            }
-        }
-        this.buffetService.inserisciTutti(buffets);
+        this.buffetService.deletePiattoforAll(id);
         this.piattoService.deletePiatto(id);
         model.addAttribute("buffets", this.buffetService.tutti());
         model.addAttribute("chefs", this.chefService.tutti());
@@ -119,10 +109,7 @@ public class PiattoController {
     public String addIngredientiPiatto(@PathVariable("id") Long id,
                                        @PathVariable("id2") Long idIn,
                                         Model model) {
-        Piatto piatto = this.piattoService.piattoPerId(id);
-        Ingrediente ingrediente = this.ingredienteService.ingredientePerId(idIn);
-        piatto.addIngrediente(ingrediente);
-        this.piattoService.inserisci(piatto);
+        this.piattoService.addIngredienteforPiatto(id, idIn);
         model.addAttribute("ingredienti", this.ingredienteService.tutti());
         model.addAttribute("piatto", this.piattoService.piattoPerId(id));
 
@@ -132,10 +119,7 @@ public class PiattoController {
     @GetMapping("piatto/deleteAttribute/{id}/{id2}")
     public String deleteIngredientiPiatto(@PathVariable("id") Long id,
                                        @PathVariable("id2") Long idIn, Model model){
-        Piatto piatto = this.piattoService.piattoPerId(id);
-        Ingrediente ingrediente = this.ingredienteService.ingredientePerId(idIn);
-        piatto.deleteIngrediente(ingrediente);
-        this.piattoService.inserisci(piatto);
+        this.piattoService.deleteIngredienteforPiatto(id, idIn);
         model.addAttribute("ingredienti", this.ingredienteService.tutti());
         model.addAttribute("piatto", this.piattoService.piattoPerId(id));
         return "addIngrediente";

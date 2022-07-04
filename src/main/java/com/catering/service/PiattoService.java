@@ -1,6 +1,5 @@
 package com.catering.service;
 
-import com.catering.model.Ingrediente;
 import com.catering.model.Piatto;
 import com.catering.repository.PiattoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,13 +44,21 @@ public class PiattoService {
 
     @Transactional
     public void deletePiatto(Long id) {
-        Optional<Piatto> optional = piattoRepository.findById(id);
-        if (optional.isPresent())
-            this.piattoRepository.delete(optional.get());
+        this.piattoRepository.deleteById(id);
     }
 
     @Transactional
-    public List<Piatto> findAllByIngredientiContaining(Ingrediente ingrediente){
-        return piattoRepository.findAllByIngredientiContaining(ingrediente);
+    public void addIngredienteforPiatto(Long idP, Long idI){
+        this.piattoRepository.addIngredienteforPiatto(idP,idI);
+    }
+
+    @Transactional
+    public void deleteIngredienteforAll(Long idI){
+        this.piattoRepository.deleteIngredienteforAll(idI);
+    }
+
+    @Transactional
+    public void deleteIngredienteforPiatto(Long idP, Long idI){
+        this.piattoRepository.deleteIngredienteforPiatto(idP,idI);
     }
 }

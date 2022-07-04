@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
+    <link href="https://fonts.googleapis.com/css2?family=Smooch&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title th:text="${buffet.name}"> Home</title>
 </head>
 <body>
+<!-- NAVIGATION bar -->
+<nav th:replace="fragments/base.html :: intestazione"></nav>
 
+<div class="main">
+
+</div>
+
+<!-- footer -->
+<footer th:replace="fragments/base.html :: fondo"></footer>
 </body>
 </html>

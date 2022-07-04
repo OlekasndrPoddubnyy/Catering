@@ -301,6 +301,10 @@ nav{
     background: #ff568f;
 }
 
+.container-main .card:hover .box .content .links:hover{
+    background: var(--primary);
+}
+
 
 
 

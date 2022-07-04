@@ -13,9 +13,22 @@
     width: 250px;
 }
 
-.inputBox input{
+.inputBox input {
     width: 100%;
     height: auto;
+    padding: 15px 30px;
+    border: 1px solid #552a72;
+    border-radius: 30px;
+    background: rgb(255, 255, 255);
+    outline: none;
+    color: #131313;
+    font-size: 1em;
+    transition: all 0.5s ease-in-out;
+}
+
+.inputBox textarea {
+    width: 100%;
+    height: 250px;
     padding: 15px 30px;
     border: 1px solid #552a72;
     border-radius: 30px;
@@ -38,7 +51,9 @@
 }
 
 .inputBox input:valid ~ span,
-.inputBox input:focus ~ span{
+.inputBox input:focus ~ span,
+.inputBox textarea:valid ~ span,
+.inputBox textarea:focus ~ span{
     color: #552a72;
     transform: translateX(10px) translateY(-7px);
     font-size: 0.75em;

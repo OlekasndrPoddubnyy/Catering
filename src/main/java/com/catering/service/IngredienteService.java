@@ -41,8 +41,6 @@ public class IngredienteService {
 
     @Transactional
     public void deleteIngrediente(Long id) {
-        Optional<Ingrediente> optional = ingredienteRepository.findById(id);
-        if (optional.isPresent())
-            this.ingredienteRepository.delete(optional.get());
+        this.ingredienteRepository.deleteById(id);
     }
 }

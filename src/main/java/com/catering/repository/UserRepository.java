@@ -13,6 +13,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     void aggiungiBuffetUser(@Param("idU") Long idU, @Param("idB") Long id);
 
     @Modifying
-    @Query(value = "delete from users_bookmarks p where p.user_id=:idU and p.bookmarks_id=:idB", nativeQuery = true)
-    void cancellaBuffetUser(@Param("idU") Long idU, @Param("idB") Long id);
+    @Query(value = "delete from users_bookmarks p where p.bookmarks_id=:idB", nativeQuery = true)
+    void cancellaBuffetUser(@Param("idB") Long id);
 }

@@ -2,7 +2,6 @@ package com.catering.controller;
 
 import com.catering.controller.validator.IngredienteValidator;
 import com.catering.model.Ingrediente;
-import com.catering.model.Piatto;
 import com.catering.service.BuffetService;
 import com.catering.service.ChefService;
 import com.catering.service.IngredienteService;
@@ -13,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 public class IngredienteController {
@@ -68,14 +66,7 @@ public class IngredienteController {
 
     @GetMapping("ingrediente/delete/{id}")
     public String deleteById(@PathVariable("id") Long id, Model model) {
-        Ingrediente ingrediente = this.ingredienteService.ingredientePerId(id);
-        List<Piatto> piatti = this.piattoService.findAllByIngredientiContaining(ingrediente);
-        if(!piatti.isEmpty()){
-            for (Piatto piatto: piatti) {
-                piatto.deleteIngrediente(ingrediente);
-            }
-        }
-        this.piattoService.inserisciTutti(piatti);
+        this.piattoService.deleteIngredienteforAll(id);
         this.ingredienteService.deleteIngrediente(id);
         model.addAttribute("buffets", this.buffetService.tutti());
         model.addAttribute("chefs", this.chefService.tutti());

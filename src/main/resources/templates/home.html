@@ -23,7 +23,7 @@
                     <h2 th:text="${bookmark.id}">01</h2>
                     <h3 th:text="${bookmark.name}">Card One</h3>
                     <p th:text="${bookmark.description}"> Lorem ipsum dolor sit amet</p>
-                    <a class="links" href="#">Read More</a>
+                    <a class="links" th:href="@{'/buffet' + '/' + ${bookmark.id}}">Read More</a>
                     <a class="links" th:href="@{'/userProfile/deleteBuffet' + '/' + ${bookmark.id}}">Unbookmark</a>
                 </div>
             </div>

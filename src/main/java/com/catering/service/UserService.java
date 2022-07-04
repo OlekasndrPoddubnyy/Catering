@@ -64,8 +64,8 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteBookmark(Long idU, Long idB){
-        this.userRepository.cancellaBuffetUser(idU,idB);
+    public void deleteBookmark(Long idB){
+        this.userRepository.cancellaBuffetUser(idB);
     }
 }
 

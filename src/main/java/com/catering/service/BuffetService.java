@@ -1,8 +1,6 @@
 package com.catering.service;
 
 import com.catering.model.Buffet;
-import com.catering.model.Chef;
-import com.catering.model.Piatto;
 import com.catering.repository.BuffetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,18 +45,42 @@ public class BuffetService {
 
     @Transactional
     public void deleteBuffet(Long id) {
-        Optional<Buffet> optional = buffetRepository.findById(id);
-        if (optional.isPresent())
-            this.buffetRepository.delete(optional.get());
+        this.buffetRepository.deleteById(id);
     }
 
     @Transactional
-    public List<Buffet> findAllByPiattiContains(Piatto piatto){
-        return this.buffetRepository.findAllByPiattiContaining(piatto);
+    public void addPiattoforBuffet(Long idB, Long idP){
+        this.buffetRepository.addPiattoforBuffet(idB,idP);
     }
 
     @Transactional
-    public List<Buffet> findAllByChefContains(Chef chef){
-        return this.buffetRepository.findAllByChefContaining(chef);
+    public void deletePiattoforAll(Long idP){
+        this.buffetRepository.deletePiattoforAll(idP);
     }
+
+    @Transactional
+    public void deletePiattoforBuffet(Long idB, Long idP){
+        this.buffetRepository.deletePiattoforBuffet(idB,idP);
+    }
+
+    @Transactional
+    public void setChefBuffet(Long idC, Long idB){
+        this.buffetRepository.setChefBuffet(idC, idB);
+    }
+
+    @Transactional
+    public void setAllChefBuffet(Long idC, Long idC2){
+        this.buffetRepository.setAllChefBuffet(idC, idC2);
+    }
+
+    @Transactional
+    public void delAllChefBuffet(Long idC){
+        this.buffetRepository.delAllChefBuffet(idC);
+    }
+
+    @Transactional
+    public void delChefBuffet(Long idB){
+        this.buffetRepository.delChefBuffet(idB);
+    }
+
 }
