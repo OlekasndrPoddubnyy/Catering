@@ -1,6 +1,8 @@
 package com.catering.controller;
 
+import com.catering.controller.validator.IngredienteValidator;
 import com.catering.controller.validator.PiattoValidator;
+import com.catering.model.Ingrediente;
 import com.catering.model.Piatto;
 import com.catering.service.BuffetService;
 import com.catering.service.ChefService;
@@ -31,6 +33,9 @@ public class PiattoController {
     @Autowired
     private ChefService chefService;
 
+    @Autowired
+    private IngredienteValidator ingredienteValidator;
+
     @RequestMapping(value = "/admin/piatto", method = RequestMethod.GET)
     public String addPiatto(Model model) {
         model.addAttribute("piatto", new Piatto());
@@ -51,7 +56,7 @@ public class PiattoController {
 
     @RequestMapping(value = "/admin/piatto", method = RequestMethod.POST)
     public String addPiatto(@ModelAttribute("piatto") Piatto piatto,
-                          Model model, BindingResult bindingResult) {
+                            Model model, BindingResult bindingResult) {
         this.piattoValidator.validate(piatto, bindingResult);
         if (!bindingResult.hasErrors()) {
             this.piattoService.inserisci(piatto);
@@ -84,7 +89,7 @@ public class PiattoController {
 
     @RequestMapping(value = "/admin/piatto/update", method = RequestMethod.POST)
     public String updatePiatto(@ModelAttribute("piatto") Piatto piatto,
-                             Model model, BindingResult bindingResult) {
+                               Model model, BindingResult bindingResult) {
         this.piattoValidator.validate2(piatto, bindingResult);
         if (!bindingResult.hasErrors()) {
             this.piattoService.inserisci(piatto);
@@ -108,7 +113,7 @@ public class PiattoController {
     @GetMapping("piatto/addAttribute/{id}/{id2}")
     public String addIngredientiPiatto(@PathVariable("id") Long id,
                                        @PathVariable("id2") Long idIn,
-                                        Model model) {
+                                       Model model) {
         this.piattoService.addIngredienteforPiatto(id, idIn);
         model.addAttribute("ingredienti", this.ingredienteService.tutti());
         model.addAttribute("piatto", this.piattoService.piattoPerId(id));
@@ -118,10 +123,17 @@ public class PiattoController {
 
     @GetMapping("piatto/deleteAttribute/{id}/{id2}")
     public String deleteIngredientiPiatto(@PathVariable("id") Long id,
-                                       @PathVariable("id2") Long idIn, Model model){
+                                          @PathVariable("id2") Long idIn, Model model) {
         this.piattoService.deleteIngredienteforPiatto(id, idIn);
         model.addAttribute("ingredienti", this.ingredienteService.tutti());
         model.addAttribute("piatto", this.piattoService.piattoPerId(id));
         return "addIngrediente";
+    }
+
+    @RequestMapping(value = "/admin/ingredientePiatto/{id}", method = RequestMethod.GET)
+    public String addIngrediente(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("piatto", this.piattoService.piattoPerId(id));
+        model.addAttribute("ingrediente", new Ingrediente());
+        return "form/ingredientePiattoForm";
     }
 }

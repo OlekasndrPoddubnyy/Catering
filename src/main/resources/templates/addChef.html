@@ -10,85 +10,33 @@
 </head>
 <body>
 <!--Navigation Menu-->
-<div class="navigation">
-    <ul>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <div class="menu-btn">
-                    <span class="icon toggle" title="Menu">
-                        <i class="uil uil-bars icona open"></i>
-                        <i class="uil uil-multiply icona close"></i>
-                    </span>
-            </div>
-        </li>
-        <li class="list active">
-            <b></b>
-            <b></b>
-            <a th:href="@{/default}">
-                <span class="icon" title="Home"><i class="uil uil-estate icona"></i></span>
-                <span class="title">Home</span>
-            </a>
-        </li>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <a th:href="@{/default#Chef}">
-                <span class="icon" title="Chef"><i class="uil uil-user icona"></i></ion-icon></span>
-                <span class="title">Chef</span>
-            </a>
-        </li>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <a th:href="@{/default#Buffet}">
-                <span class="icon" title="Buffet"><i class="uil uil-clipboard-notes icona"></i></span>
-                <span class="title">Buffet</span>
-            </a>
-        </li>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <a th:href="@{/default#Piatto}">
-                <span class="icon" title="Piatti"><i class="uil uil-crockery icona"></i></span>
-                <span class="title">Piatti</span>
-            </a>
-        </li>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <a th:href="@{/default#Ingrediente}">
-                <span class="icon" title="Ingredienti"><i class="uil uil-pizza-slice icona"></i></span>
-                <span class="title">Ingredienti</span>
-            </a>
-        </li>
-        <li class="list">
-            <b></b>
-            <b></b>
-            <a th:href="@{/logout}">
-                <span class="icon" title="Logout"><i class="uil uil-signout icona"></i></span>
-                <span class="title">Logout</span>
-            </a>
-        </li>
-    </ul>
-</div>
+<div th:replace="fragments/base.html :: intestazione-admin"></div>
 
-<div class="main">
+    <div class="main">
 
-    <p class="title">Aggiungi Chef</p>
+        <p class="title">Aggiungi Chef</p>
 
-    <div class="containerInner">
-        <div class="table">
-            <div class="table-header">
-                <div class="header__item"><a class="filter__link" href="#">Nome Cognome</a></div>
-                <div class="header__item"><a class="filter__link" href="#">Descrizione</a></div>
-                <div class="header__item"><a class="filter__link" href="#"></a></div>
-            </div>
-            <div class="table-content">
-                <div class="table-row" th:each="chef : ${chefs}">
-                    <div class="table-data" th:text="${chef.name} + ' ' + ${chef.lastName} ">Assaggio Mediterraneo</div>
-                    <div class="table-data" th:text="${chef.nationality}">Descrizione</div>
-                    <div class="table-data bottoni">
+
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">Nome Cognome</th>
+                <th scope="col">Nazionalita</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="chef : ${chefs}">
+                <td data-label="Nome Cognome" th:text="${chef.name} + ' ' + ${chef.lastName} ">Visa - 3412</td>
+                <td data-label="Nazionalita" th:text="${chef.nationality}">04/01/2016</td>
+                <td data-label="Buffet" th:if="${!chef.getBuffets().isEmpty()}">
+                    <div th:each="chefBuffet : ${chef.buffets}">
+                        <p th:text="${chefBuffet.name}">Buffet1</p>
+                    </div>
+                </td>
+                <td data-label="Buffet" th:unless="${!chef.getBuffets().isEmpty()}">Nessuno</td>
+                <td data-label="">
+                    <div class="bottoni">
                         <div class="btn2">
                             <a th:if="${!chef.equals(buffet.getChef())}"
                                th:href="@{'/buffet/addChef' + '/' + ${buffet.id} + '/' + ${chef.id}}">
@@ -99,9 +47,12 @@
                                 <div class="btn presente">Elimina</div></a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-</div>
+    </div>
+    <script th:src="@{/js/admin.js}"></script>
+</body>
+</html>

@@ -50,11 +50,11 @@ public class IngredienteController {
     }
 
     @RequestMapping(value = "/admin/ingrediente", method = RequestMethod.POST)
-    public String addIngrediente(@ModelAttribute("ingrediente") Ingrediente chef,
+    public String addIngrediente(@ModelAttribute("ingrediente") Ingrediente ingrediente,
                             Model model, BindingResult bindingResult) {
-        this.ingredienteValidator.validate(chef, bindingResult);
+        this.ingredienteValidator.validate(ingrediente, bindingResult);
         if (!bindingResult.hasErrors()) {
-            this.ingredienteService.inserisci(chef);
+            this.ingredienteService.inserisci(ingrediente);
             model.addAttribute("buffets", this.buffetService.tutti());
             model.addAttribute("chefs", this.chefService.tutti());
             model.addAttribute("piatti", this.piattoService.tutti());

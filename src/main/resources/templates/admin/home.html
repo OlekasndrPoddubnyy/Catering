@@ -15,150 +15,174 @@
 <!--Main-->
     <div class="main">
         <p class="title">Benvenuto Nella Sezione Administratore</p>
-        <div class="containerInner">
-            <p class="impostazioni-title" id="Chef">Impostazioni Chef</p>
-            <div class="lista-impostazioni">
-                <a class="btn-creat" th:href="@{/admin/chef}"><div class="creazione">Aggiungi chef</div></a>
-            </div>
-                <div class="table">
-                    <div class="table-header">
-                        <div class="header__item"><a class="filter__link" href="#">Nome Cognome</a></div>
-                        <div class="header__item"><a class="filter__link" href="#">Nazionalita</a></div>
-                        <div class="header__item"><a class="filter__link" href="#">Buffet</a></div>
-                        <div class="header__item"><a class="filter__link" href="#"></a></div>
-                    </div>
-                    <div class="table-content">
-                        <div class="table-row" th:each="chef : ${chefs}">
-                            <div class="table-data" th:text="${chef.name} + ' ' + ${chef.lastName} ">Paolo Rossi</div>
-                            <div class="table-data" th:text="${chef.nationality}">Ita</div>
-                            <div class="table-data" th:if="${!chef.getBuffets().isEmpty()}">
-                                <div th:each="chefBuffet : ${chef.buffets}">
-                                    <p th:text="${chefBuffet.name}">Buffet1</p>
-                                </div>
-                            </div>
-                            <div class="table-data" th:unless="${!chef.getBuffets().isEmpty()}">Nessuno</div>
-                            <div class="table-data bottoni">
-                                <div class="btn2">
-                                    <a th:href="@{'/chef/mod' + '/' + ${chef.id}}"><div class="btn">Modifica Buffet</div></a>
-                                </div>
-                                <div class="btn2">
-                                    <a th:href="@{'/chef/update' + '/' + ${chef.id}}"><div class="btn">Modifica</div></a>
-                                    <a th:href="@{'/chef/delete' + '/' + ${chef.id}}" ><div class="btn">Cancella</div></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
 
-        <div class="containerInner">
-            <p class="impostazioni-title" id="Buffet">Impostazioni Buffet</p>
-            <div class="lista-impostazioni">
-                <a class="btn-creat" th:href="@{/admin/buffet}"><div class="creazione">Aggiungi Buffet</div></a>
-            </div>
-            <div class="table">
-                <div class="table-header">
-                    <div class="header__item"><a class="filter__link" href="#">Nome</a></div>
-                    <div class="header__item"><a class="filter__link" href="#">Descrizione</a></div>
-                    <div class="header__item"><a class="filter__link" href="#">Chef</a></div>
-                    <div class="header__item"><a class="filter__link" href="#">Piatti</a></div>
-                    <div class="header__item"><a class="filter__link" href="#"></a></div>
+        <!--Chef-->
+        <table>
+            <caption>
+                <p class="impostazioni-title" id="Chef">Impostazioni Chef</p>
+                <div class="lista-impostazioni">
+                    <a class="btn-creat" th:href="@{/admin/chef}"><div class="creazione">Aggiungi chef</div></a>
                 </div>
-                <div class="table-content">
-                    <div class="table-row" th:each="buffet : ${buffets}">
-                        <div class="table-data" th:text="${buffet.name}">Assaggio Mediterraneo</div>
-                        <div class="table-data" th:text="${buffet.description}">Descrizione</div>
-                        <div class="table-data" th:if="${buffet.getChef() != null}"
-                             th:text="${buffet.chef.name} + ' ' + ${buffet.chef.lastName}">Chef</div>
-                        <div class="table-data" th:unless="${buffet.getChef() != null}" th:text="Nessuno">Chef</div>
-                        <div class="table-data" th:if="${!buffet.getPiatti().isEmpty()}">
-                            <div th:each="buffetPiatto : ${buffet.piatti}">
-                                <p th:text="${buffetPiatto.name}">Piatto1</p>
-                            </div>
+            </caption>
+            <thead th:if="${!chefs.isEmpty()}">
+            <tr>
+                <th scope="col">Nome Cognome</th>
+                <th scope="col">Nazionalita</th>
+                <th scope="col">Buffet</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="chef : ${chefs}">
+                <td data-label="Nome Cognome" th:text="${chef.name} + ' ' + ${chef.lastName} ">Visa - 3412</td>
+                <td data-label="Nazionalita" th:text="${chef.nationality}">04/01/2016</td>
+                <td data-label="Buffet" th:if="${!chef.getBuffets().isEmpty()}">
+                    <div th:each="chefBuffet : ${chef.buffets}">
+                        <p th:text="${chefBuffet.name}">Buffet1</p>
+                    </div>
+                </td>
+                <td data-label="Buffet" th:unless="${!chef.getBuffets().isEmpty()}">Nessuno</td>
+                <td data-label="">
+                    <div class="bottoni">
+                        <div class="btn2">
+                            <a th:href="@{'/chef/mod' + '/' + ${chef.id}}"><div class="btn">Modifica Buffet</div></a>
                         </div>
-                        <div class="table-data" th:unless="${!buffet.getPiatti().isEmpty()}">Nessuno</div>
-                        <div class="table-data bottoni">
-                            <div class="btn2">
-                                <a th:href="@{'/buffet/modChef' + '/' + ${buffet.id}}"><div class="btn">Modifica Chef</div></a>
-                                <a th:href="@{'/buffet/modPiatto' + '/' + ${buffet.id}}"><div class="btn">Modifica Piatti</div></a>
-                            </div>
-                            <div class="btn2">
-                                <a th:href="@{'/buffet/update' + '/' + ${buffet.id}}"><div class="btn">Modifica</div></a>
-                                <a th:href="@{'/buffet/delete' + '/' + ${buffet.id}}" ><div class="btn">Cancella</div></a>
-                            </div>
+                        <div class="btn2">
+                            <a th:href="@{'/chef/update' + '/' + ${chef.id}}"><div class="btn">Modifica</div></a>
+                            <a th:href="@{'/chef/delete' + '/' + ${chef.id}}" ><div class="btn">Cancella</div></a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-        <div class="containerInner">
-            <p class="impostazioni-title" id="Piatto">Impostazioni Piatto</p>
-            <div class="lista-impostazioni">
-                <a class="btn-creat" th:href="@{/admin/piatto}"><div class="creazione">Aggiungi Piatto</div></a>
-            </div>
-            <div class="table">
-                <div class="table-header">
-                    <div class="header__item"><a class="filter__link" href="#">Nome</a></div>
-                    <div class="header__item"><a class="filter__link" href="#">Descrizione</a></div>
-                    <div class="header__item"><a class="filter__link" href="#">Ingredienti</a></div>
-                    <div class="header__item"><a class="filter__link" href="#"></a></div>
-                </div>
-                <div class="table-content">
-                    <div class="table-row" th:each="piatto : ${piatti}">
-                        <div class="table-data" th:text="${piatto.name}">Assaggio Mediterraneo</div>
-                        <div class="table-data" th:text="${piatto.description}">Descrizione</div>
-                        <div class="table-data" th:if="${!piatto.getIngredienti().isEmpty()}">
-                            <div th:each="piattoIngrediente : ${piatto.ingredienti}">
-                                <p th:text="${piattoIngrediente.name}">Buffet1</p>
-                            </div>
-                        </div>
-                        <div class="table-data" th:unless="${!piatto.getIngredienti().isEmpty()}">Nessuno</div>
-                        <div class="table-data bottoni">
-                            <div class="btn2">
-                                <a th:href="@{'/piatto/mod' + '/' + ${piatto.id}}"><div class="btn">Modifica Ingredienti</div></a>
-                            </div>
-                            <div class="btn2">
-                                <a th:href="@{'/piatto/update' + '/' + ${piatto.id}}"><div class="btn">Modifica</div></a>
-                                <a th:href="@{'/piatto/delete' + '/' + ${piatto.id}}" ><div class="btn">Cancella</div></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="containerInner">
-            <p class="impostazioni-title" id="Ingrediente">Impostazioni Ingrediente</p>
-            <div class="lista-impostazioni">
-                <a class="btn-creat" th:href="@{/admin/ingrediente}"><div class="creazione">Aggiungi Ingrediente</div></a>
-            </div>
-            <div class="table">
-                <div class="table-header">
-                    <div class="header__item"><a class="filter__link" href="#">Nome</a></div>
-                    <div class="header__item"><a class="filter__link" href="#">Descrizione</a></div>
-                    <div class="header__item"><a class="filter__link" href="#">Origine</a></div>
-                    <div class="header__item"><a class="filter__link" href="#"></a></div>
+
+        <!--Buffet-->
+        <table>
+            <caption>
+                <p class="impostazioni-title" id="Buffet">Impostazioni Buffet</p>
+                <div class="lista-impostazioni">
+                    <a class="btn-creat" th:href="@{/admin/buffet}"><div class="creazione">Aggiungi Buffet</div></a>
                 </div>
-                <div class="table-content">
-                    <div class="table-row" th:each="ingrediente : ${ingredienti}">
-                        <div class="table-data" th:text="${ingrediente.name}">Assaggio Mediterraneo</div>
-                        <div class="table-data" th:text="${ingrediente.description}">Descrizione</div>
-                        <div class="table-data" th:text="${ingrediente.origin}">Origine</div>
-                        <div class="table-data bottoni">
-                            <div class="btn2">
-                                <a th:href="@{'/ingrediente/update' + '/' + ${ingrediente.id}}"><div class="btn">Modifica</div></a>
-                                <a th:href="@{'/ingrediente/delete' + '/' + ${ingrediente.id}}" ><div class="btn">Cancella</div></a>
-                            </div>
+            </caption>
+            <thead th:if="${!buffets.isEmpty()}">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrizione</th>
+                <th scope="col">Chef</th>
+                <th scope="col">Piatti</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="buffet : ${buffets}">
+                <td data-label="Nome" th:text="${buffet.name}">Visa - 3412</td>
+                <td data-label="Descrizione" th:text="${buffet.description}">04/01/2016</td>
+                <td data-label="Chef" th:if="${buffet.getChef() != null}"
+                    th:text="${buffet.chef.name} + ' ' + ${buffet.chef.lastName}">04/01/2016</td>
+                <td data-label="Chef" th:unless="${buffet.getChef() != null}" th:text="Nessuno">04/01/2016</td>
+                <td data-label="Piatti" th:if="${!buffet.getPiatti().isEmpty()}">
+                    <div th:each="buffetPiatto : ${buffet.piatti}">
+                        <p th:text="${buffetPiatto.name}">Piatto1</p>
+                    </div>
+                </td>
+                <td data-label="Piatti" th:unless="${!buffet.getPiatti().isEmpty()}">Nessuno</td>
+                <td data-label="">
+                    <div class="bottoni">
+                        <div class="btn2">
+                            <a th:href="@{'/buffet/modChef' + '/' + ${buffet.id}}"><div class="btn">Modifica Chef</div></a>
+                            <a th:href="@{'/buffet/modPiatto' + '/' + ${buffet.id}}"><div class="btn">Modifica Piatti</div></a>
+                        </div>
+                        <div class="btn2">
+                            <a th:href="@{'/buffet/update' + '/' + ${buffet.id}}"><div class="btn">Modifica</div></a>
+                            <a th:href="@{'/buffet/delete' + '/' + ${buffet.id}}" ><div class="btn">Cancella</div></a>
                         </div>
                     </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <!--Piatto-->
+        <table>
+            <caption>
+                <p class="impostazioni-title" id="Piatto">Impostazioni Piatto</p>
+                <div class="lista-impostazioni">
+                    <a class="btn-creat" th:href="@{/admin/piatto}"><div class="creazione">Aggiungi Piatto</div></a>
                 </div>
-            </div>
-        </div>
+            </caption>
+            <thead th:if="${!piatti.isEmpty()}" >
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrizione</th>
+                <th scope="col">Ingredienti</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="piatto : ${piatti}">
+                <td data-label="Nome" th:text="${piatto.name}">Visa - 3412</td>
+                <td data-label="Descrizione" th:text="${piatto.description}">04/01/2016</td>
+                <td data-label="Ingredienti" th:if="${!piatto.getIngredienti().isEmpty()}">
+                    <div th:each="piattoIngrediente : ${piatto.ingredienti}">
+                        <p th:text="${piattoIngrediente.name}">Ingrediente1</p>
+                    </div>
+                </td>
+                <td data-label="Ingredienti" th:unless="${!piatto.getIngredienti().isEmpty()}">Nessuno</td>
+                <td data-label="">
+                    <div class="bottoni">
+                        <div class="btn2">
+                            <a th:href="@{'/piatto/mod' + '/' + ${piatto.id}}"><div class="btn">Modifica Ingredienti</div></a>
+                        </div>
+                        <div class="btn2">
+                            <a th:href="@{'/piatto/update' + '/' + ${piatto.id}}"><div class="btn">Modifica</div></a>
+                            <a th:href="@{'/piatto/delete' + '/' + ${piatto.id}}" ><div class="btn">Cancella</div></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+            <!--Ingredienti-->
+        <table>
+            <caption>
+                <p class="impostazioni-title" id="Ingrediente">Impostazioni Ingrediente</p>
+                <div class="lista-impostazioni">
+                    <a class="btn-creat" th:href="@{/admin/ingrediente}"><div class="creazione">Aggiungi Ingrediente</div></a>
+                </div>
+            </caption>
+            <thead th:if="${!ingredienti.isEmpty()}" >
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrizione</th>
+                <th scope="col">Origine</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ingrediente : ${ingredienti}">
+                <td data-label="Nome" th:text="${ingrediente.name}">Visa - 3412</td>
+                <td data-label="Descrizione" th:text="${ingrediente.description}">04/01/2016</td>
+                <td data-label="Origine" th:text="${ingrediente.origin}">$1,190</td>
+                <td data-label="">
+                    <div class="bottoni">
+                        <div class="btn2">
+                            <a th:href="@{'/ingrediente/update' + '/' + ${ingrediente.id}}"><div class="btn">Modifica</div></a>
+                            <a th:href="@{'/ingrediente/delete' + '/' + ${ingrediente.id}}" ><div class="btn">Cancella</div></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
     </div>
-
-
-
 
 
 
