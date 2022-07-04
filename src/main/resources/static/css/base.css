@@ -342,6 +342,11 @@ nav{
     color: #333;
 }
 
+.title-description .desc{
+    justify-content: center;
+    text-align: center;
+}
+
 .chef-section span{
     font-size: 2rem;
     font-family: 'Signika', sans-serif;

@@ -188,21 +188,10 @@ body{
     text-align: center;
 }
 
-.main .containerInner{
-    margin-top: 15px;
-    padding-bottom: 10px;
-}
-
-.containerInner .impostazioni-title{
-    font-size: 30px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
 @media screen and (max-width: 800px){
     .main .title{
         font-size: 30px;
+        font-weight: 300;
     }
 
     .containerInner .impostazioni-title{
@@ -237,91 +226,6 @@ body{
 
 .creazione:hover{
     background: #5d00de;
-}
-
-
-/*--------------------------------------------------------------------------------*/
-
-.container {
-    max-width: 1000px;
-    margin-right:auto;
-    margin-left:auto;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.table {
-    width:100%;
-}
-
-.table-header {
-    display:flex;
-    width:100%;
-    background:#000;
-    padding:18px 0;
-    font-size: 14px;
-}
-
-.table-row {
-    display:flex;
-    width:100%;
-    padding:12px 0;
-}
-
-.table-row:nth-of-type(odd){
-    background: rgba(117, 49, 189, 0.35);
-}
-
-.table-data, .header__item {
-    display: flex;
-    flex-direction: column;
-    text-align:left;
-    margin: auto 50px;
-    width: 160px;
-}
-
-.table-data p{
-    margin-top: 5px;
-}
-
-
-.header__item {
-    text-transform:uppercase;
-}
-
-.filter__link {
-    color:white;
-    text-decoration: none;
-    position:relative;
-    display:inline-block;
-    padding-left:24px;
-    padding-right:24px;
-}
-
-.table-data a{
-    text-decoration: none;
-    color: #000;
-}
-
-.table-data a:hover{
-    text-decoration: none;
-    color:#212121;
-}
-
-.table-data.bottoni{
-    display: flex;
-    flex-direction: row;
-    max-width: 400px;
-    text-align: right;
-    right: 20px;
-}
-
-.table-data.bottoni .btn2{
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    margin: auto 10px;
 }
 
 
@@ -384,6 +288,7 @@ table .bottoni{
     max-width: 400px;
     justify-content: left;
     text-align: center;
+    overflow-x: scroll;
 }
 
 table .bottoni .btn2{
