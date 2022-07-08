@@ -17,7 +17,7 @@ public class IngredienteValidator implements Validator {
     @Autowired
     private IngredienteService ingredienteService;
 
-    private static Logger logger = LoggerFactory.getLogger(BuffetValidator.class);
+    private static Logger logger = LoggerFactory.getLogger(IngredienteValidator.class);
 
     @Override
     public void validate(Object o, Errors errors) {

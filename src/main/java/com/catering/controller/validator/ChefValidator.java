@@ -16,7 +16,7 @@ public class ChefValidator implements Validator {
     @Autowired
     private ChefService chefService;
 
-    private static Logger logger = LoggerFactory.getLogger(BuffetValidator.class);
+    private static Logger logger = LoggerFactory.getLogger(ChefValidator.class);
 
     @Override
     public void validate(Object o, Errors errors) {

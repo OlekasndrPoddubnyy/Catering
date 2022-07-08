@@ -17,7 +17,7 @@ public class PiattoValidator implements Validator {
     @Autowired
     private PiattoService piattoService;
 
-    private static Logger logger = LoggerFactory.getLogger(BuffetValidator.class);
+    private static Logger logger = LoggerFactory.getLogger(PiattoValidator.class);
 
     @Override
     public void validate(Object o, Errors errors) {
