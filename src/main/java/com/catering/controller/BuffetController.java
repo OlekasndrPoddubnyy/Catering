@@ -88,7 +88,7 @@ public class BuffetController {
                              Model model, BindingResult bindingResult) {
         this.buffetValidator.validate2(buffet, bindingResult);
         if (!bindingResult.hasErrors()) {
-            this.buffetService.inserisci(buffet);
+            this.buffetService.update(buffet);
             model.addAttribute("buffets", this.buffetService.tutti());
             model.addAttribute("chefs", this.chefService.tutti());
             model.addAttribute("piatti", this.piattoService.tutti());

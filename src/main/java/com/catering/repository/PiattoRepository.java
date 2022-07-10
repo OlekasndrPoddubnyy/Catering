@@ -22,4 +22,8 @@ public interface PiattoRepository extends CrudRepository<Piatto, Long> {
     @Modifying
     @Query(value = "insert into piatto_ingredienti (piatto_id, ingredienti_id) Values (:idP, :idI)", nativeQuery = true)
     void addIngredienteforPiatto(@Param("idP")Long idP, @Param("idI")Long idI);
+
+    @Modifying
+    @Query("update Piatto p set p.name=:nome, p.description=:descrizione where p.id=:id")
+    public void update(@Param("id") Long id, @Param("nome") String nome, @Param("descrizione") String descrizione);
 }

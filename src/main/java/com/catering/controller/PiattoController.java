@@ -92,7 +92,7 @@ public class PiattoController {
                                Model model, BindingResult bindingResult) {
         this.piattoValidator.validate2(piatto, bindingResult);
         if (!bindingResult.hasErrors()) {
-            this.piattoService.inserisci(piatto);
+            this.piattoService.update(piatto);
             model.addAttribute("buffets", this.buffetService.tutti());
             model.addAttribute("chefs", this.chefService.tutti());
             model.addAttribute("piatti", this.piattoService.tutti());

@@ -88,7 +88,7 @@ public class ChefController {
                           Model model, BindingResult bindingResult) {
         this.chefValidator.validate2(chef, bindingResult);
         if (!bindingResult.hasErrors()) {
-            this.chefService.inserisci(chef);
+            this.chefService.update(chef);
             model.addAttribute("buffets", this.buffetService.tutti());
             model.addAttribute("chefs", this.chefService.tutti());
             model.addAttribute("piatti", this.piattoService.tutti());

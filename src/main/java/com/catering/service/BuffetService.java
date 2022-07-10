@@ -83,4 +83,9 @@ public class BuffetService {
         this.buffetRepository.delChefBuffet(idB);
     }
 
+    @Transactional
+    public void update(Buffet buffetMod){
+        this.buffetRepository.update(buffetMod.getId(),buffetMod.getName(),buffetMod.getDescription());
+    }
+
 }

@@ -25,4 +25,9 @@ public interface ChefRepository extends CrudRepository<Chef, Long> {
     @Modifying
     @Query(value = "insert into chef_buffets (chef_id, buffets_id) Values (:idC, :idB)", nativeQuery = true)
     void addBuffetforChef(@Param("idC")Long idC, @Param("idB")Long idB);
+
+    @Modifying
+    @Query("update Chef c set c.name=:nome, c.lastName=:cognome, c.nationality=:nazionalita where c.id=:id")
+    public void update(@Param("id") Long id, @Param("nome") String nome, @Param("cognome") String cognome,
+                       @Param("nazionalita") String nazionalita);
 }

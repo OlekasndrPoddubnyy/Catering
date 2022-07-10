@@ -1,5 +1,6 @@
 package com.catering.service;
 
+import com.catering.model.Buffet;
 import com.catering.model.Chef;
 import com.catering.repository.ChefRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,11 @@ public class ChefService {
     @Transactional
     public void deleteBuffetforChef2(Long idC, Long idB){
         this.chefRepository.deleteBuffetforChef2(idC, idB);
+    }
+
+    @Transactional
+    public void update(Chef chefMod){
+        this.chefRepository.update(chefMod.getId(),chefMod.getName(),chefMod.getLastName(),chefMod.getNationality());
     }
 
 

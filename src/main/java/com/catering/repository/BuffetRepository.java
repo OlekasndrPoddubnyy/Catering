@@ -38,4 +38,8 @@ public interface BuffetRepository extends CrudRepository<Buffet, Long> {
     @Modifying
     @Query(value = "update buffet set chef_id=null where id=:idB",nativeQuery = true)
     void delChefBuffet(@Param("idB")Long idB);
+
+    @Modifying
+    @Query("update Buffet b set b.name=:nome, b.description=:descrizione where b.id=:id")
+    public void update(@Param("id") Long id, @Param("nome") String nome, @Param("descrizione") String descrizione);
 }

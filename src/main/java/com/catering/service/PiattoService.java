@@ -1,5 +1,6 @@
 package com.catering.service;
 
+import com.catering.model.Buffet;
 import com.catering.model.Piatto;
 import com.catering.repository.PiattoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,4 +62,10 @@ public class PiattoService {
     public void deleteIngredienteforPiatto(Long idP, Long idI){
         this.piattoRepository.deleteIngredienteforPiatto(idP,idI);
     }
+
+    @Transactional
+    public void update(Piatto piattoMod){
+        this.piattoRepository.update(piattoMod.getId(),piattoMod.getName(),piattoMod.getDescription());
+    }
+
 }
